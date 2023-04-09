@@ -6,7 +6,7 @@ import {
 
 type Props = {
   data: Data;
-  unit: string;
+  tempUnit: "C" | "F";
 };
 
 type Data = {
@@ -51,7 +51,7 @@ type DailyWeatherDetails = {
   };
 };
 
-const formatHourlyTime = ({ data, unit }: Props) => {
+const formatHourlyTime = ({ data, tempUnit }: Props) => {
   let thisHour = getCurrentHour();
 
   // console.log("checking the propppsppsss");

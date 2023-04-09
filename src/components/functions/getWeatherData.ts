@@ -15,7 +15,7 @@ type Coordinates = {
   lat: number;
 };
 
-const getWeatherData = async (cityName: string) => {
+const getWeatherData = async (cityName: string, tempUnit: "C" | "F") => {
   let todayWeatherMainDetails = {} as TodayWeatherMainDetails;
   let forecastWeatherDetails = {};
   let coordinates = {} as Coordinates;
@@ -50,7 +50,7 @@ const getWeatherData = async (cityName: string) => {
     let data = await response.json();
     forecastWeatherDetails = formatForecastDailyTempDetails({
       data: data,
-      unit: "celcius",
+      tempUnit: "C",
     });
 
     // console.log("the data from the meteo API -------------------");
