@@ -101,19 +101,21 @@ const formatHourlyTime = ({ data, unit }: Props) => {
     }
   }
 
-  function getYesterdayTempDetails() {
-    let yesterdayTempDetails = { hourly: {} } as DailyWeatherDetails;
-    let highestTemp = hourlyTempArray[0];
-    let lowestTemp = hourlyTempArray[0];
-    for (let i = 0; i < 23; i++) {
+  //index: start point of the array
+  // day: from yesterday = 0
+  function getWeatherDetailsForDay(index: number, day: number) {
+    let dayTempDetails = { hourly: {} } as DailyWeatherDetails;
+    let highestTemp = hourlyTempArray[index];
+    let lowestTemp = hourlyTempArray[index];
+    for (let i = index; i < index + 23; i++) {
       highestTemp =
         hourlyTempArray[i] > highestTemp ? hourlyTempArray[i] : highestTemp;
       lowestTemp =
         hourlyTempArray[i] < lowestTemp ? hourlyTempArray[i] : lowestTemp;
 
-      let hour = convertHourFormat(i);
+      let hour = convertHourFormat(i - index);
 
-      yesterdayTempDetails.hourly[hour] = {
+      dayTempDetails.hourly[hour] = {
         temp: Math.ceil(hourlyTempArray[i]),
         percipiation_probability: Math.ceil(
           hourlyPercipitaionProbabilityArray[i]
@@ -121,182 +123,57 @@ const formatHourlyTime = ({ data, unit }: Props) => {
       };
       if (
         hourlyRainArray[i] > hourlySnowFallArray[i] &&
-        hourlyRainArray[i] + hourlySnowFallArray[i] !== 0
+        hourlyPercipitaionProbabilityArray[i] !== 0
       ) {
-        yesterdayTempDetails.hourly[hour].rain = Math.ceil(hourlyRainArray[i]);
+        dayTempDetails.hourly[hour].rain = Math.ceil(hourlyRainArray[i]);
       } else if (
         hourlyRainArray[i] < hourlySnowFallArray[i] &&
-        hourlyRainArray[i] + hourlySnowFallArray[i] !== 0
+        hourlyPercipitaionProbabilityArray[i] !== 0
       ) {
-        yesterdayTempDetails.hourly[hour].snow = Math.ceil(
-          hourlySnowFallArray[i]
-        );
+        dayTempDetails.hourly[hour].snow = Math.ceil(hourlySnowFallArray[i]);
       }
     }
-    yesterdayTempDetails.max_temp = Math.ceil(highestTemp);
-    yesterdayTempDetails.min_temp = Math.ceil(lowestTemp);
-    yesterdayTempDetails.uvMax = Math.ceil(dailyUvIndex[0]);
-    yesterdayTempDetails.sunrise = dailySunriseArray[0];
-    yesterdayTempDetails.sunset = dailySunsetArray[0];
+    dayTempDetails.max_temp = Math.ceil(highestTemp);
+    dayTempDetails.min_temp = Math.ceil(lowestTemp);
+    dayTempDetails.uvMax = Math.ceil(dailyUvIndex[day]);
+    dayTempDetails.sunrise = dailySunriseArray[day];
+    dayTempDetails.sunset = dailySunsetArray[day];
 
-    console.log(yesterdayTempDetails);
+    return dayTempDetails;
   }
 
-  getYesterdayTempDetails();
+  let yesterdayTempDetails = getWeatherDetailsForDay(0, 0);
+  let todayTempDetails = getWeatherDetailsForDay(23, 1);
+  let secondDayTempDetails = getWeatherDetailsForDay(47, 2);
+  let thirdDayTempDetails = getWeatherDetailsForDay(71, 3);
+  let fourthDayTempDetails = getWeatherDetailsForDay(95, 4);
+  let fifthDayTempDetails = getWeatherDetailsForDay(119, 5);
+  let sixthDayTempDetails = getWeatherDetailsForDay(143, 6);
+  let seventhDayTempDetails = getWeatherDetailsForDay(167, 7);
 
-  function getTodayTempDetails() {
-    let todayTempDetails = { hourly: {} } as DailyWeatherDetails;
-    let highestTemp = hourlyTempArray[0];
-    let lowestTemp = hourlyTempArray[0];
+  console.log("----- Yesterday's Temperature Details -----");
+  console.log(yesterdayTempDetails);
 
-    for (let i = 23; i < 47; i++) {
-      highestTemp =
-        hourlyTempArray[i] > highestTemp ? hourlyTempArray[i] : highestTemp;
-      lowestTemp =
-        hourlyTempArray[i] < lowestTemp ? hourlyTempArray[i] : lowestTemp;
+  console.log("----- Today's Temperature Details -----");
+  console.log(todayTempDetails);
 
-      let hour = convertHourFormat(i - 23);
+  console.log("----- Second Day's Temperature Details -----");
+  console.log(secondDayTempDetails);
 
-      todayTempDetails.hourly[hour] = {
-        temp: Math.ceil(hourlyTempArray[i]),
-        percipiation_probability: Math.ceil(
-          hourlyPercipitaionProbabilityArray[i]
-        ),
-      };
+  console.log("----- Third Day's Temperature Details -----");
+  console.log(thirdDayTempDetails);
 
-      if (hourlyRainArray[i] > hourlySnowFallArray[i]) {
-        if (hourlyRainArray[i] + hourlySnowFallArray[i] !== 0) {
-          todayTempDetails.hourly[hour].rain = Math.ceil(hourlyRainArray[i]);
-        }
-      } else {
-        if (hourlyRainArray[i] + hourlySnowFallArray[i] !== 0) {
-          todayTempDetails.hourly[hour].snow = Math.ceil(
-            hourlySnowFallArray[i]
-          );
-        }
-      }
-    }
+  console.log("----- Fourth Day's Temperature Details -----");
+  console.log(fourthDayTempDetails);
 
-    todayTempDetails.max_temp = Math.ceil(highestTemp);
-    todayTempDetails.min_temp = Math.ceil(lowestTemp);
-    todayTempDetails.uvMax = Math.ceil(dailyUvIndex[0]);
-    todayTempDetails.sunrise = dailySunriseArray[0];
-    todayTempDetails.sunset = dailySunsetArray[0];
+  console.log("----- Fifth Day's Temperature Details -----");
+  console.log(fifthDayTempDetails);
 
-    console.log("this is todas weather");
-    console.log(todayTempDetails);
-  }
+  console.log("----- Sixth Day's Temperature Details -----");
+  console.log(sixthDayTempDetails);
 
-  getTodayTempDetails();
-
-  //   let todayTemp: object[] = [];
-  //   let tommorrowTemp: object[] = [];
-  //   let ThreeDayLaterTemp: object[] = [];
-  //   let FourDayLaterTemp: object[] = [];
-  //   let FiveDayLaterTemp: object[] = [];
-  //   let SixDayLaterTemp: object[] = [];
-  //   let SevenDayLaterTemp: object[] = [];
-
-  //   function getTodayHourlyTemperature(
-  //     timeArray: typeof currentHourlyTimeArray,
-  //     tempArray: typeof currentHourlyTempArray
-  //   ) {
-  //     console.log(timeArray[0]);
-  //     for (let i = timeArray[0]; i < 24; i++) {
-  //       timeArray.shift();
-  //       todayTemp.push({ [i]: tempArray.shift() });
-  //     }
-  //     return todayTemp;
-  //   }
-
-  //   function getTommorrowTemp(
-  //     timeArray: typeof currentHourlyTimeArray,
-  //     tempArray: typeof currentHourlyTempArray
-  //   ) {
-  //     for (let i = 0; i < 24; i++) {
-  //       timeArray.shift();
-  //       tommorrowTemp.push({ [i]: tempArray.shift() });
-  //     }
-  //     return tommorrowTemp;
-  //   }
-
-  //   function get3DayLaterTemp(
-  //     timeArray: typeof currentHourlyTimeArray,
-  //     tempArray: typeof currentHourlyTempArray
-  //   ) {
-  //     for (let i = 0; i < 24; i++) {
-  //       timeArray.shift();
-  //       ThreeDayLaterTemp.push({ [i]: tempArray.shift() });
-  //     }
-  //   }
-
-  //   function get4DayLaterTemp(
-  //     timeArray: typeof currentHourlyTimeArray,
-  //     tempArray: typeof currentHourlyTempArray
-  //   ) {
-  //     for (let i = 0; i < 24; i++) {
-  //       timeArray.shift();
-  //       FourDayLaterTemp.push({ [i]: tempArray.shift() });
-  //     }
-  //   }
-  //   function get5DayLaterTemp(
-  //     timeArray: typeof currentHourlyTimeArray,
-  //     tempArray: typeof currentHourlyTempArray
-  //   ) {
-  //     for (let i = 0; i < 24; i++) {
-  //       timeArray.shift();
-  //       FiveDayLaterTemp.push({ [i]: tempArray.shift() });
-  //     }
-  //   }
-
-  //   function get6DayLaterTemp(
-  //     timeArray: typeof currentHourlyTimeArray,
-  //     tempArray: typeof currentHourlyTempArray
-  //   ) {
-  //     for (let i = 0; i < 24; i++) {
-  //       timeArray.shift();
-  //       SixDayLaterTemp.push({ [i]: tempArray.shift() });
-  //     }
-  //   }
-
-  //   function get7DayLaterTemp(
-  //     timeArray: typeof currentHourlyTimeArray,
-  //     tempArray: typeof currentHourlyTempArray
-  //   ) {
-  //     for (let i = 0; i < 24; i++) {
-  //       timeArray.shift();
-  //       SevenDayLaterTemp.push({ [i]: tempArray.shift() });
-  //     }
-  //   }
-
-  //   let todayHourlyTemperature = getTodayHourlyTemperature(
-  //     currentHourlyTimeArray,
-  //     currentHourlyTempArray
-  //   );
-
-  //   let tommorrowHourlyTemp = getTommorrowTemp(
-  //     currentHourlyTimeArray,
-  //     currentHourlyTempArray
-  //   );
-
-  //   get3DayLaterTemp(currentHourlyTimeArray, currentHourlyTempArray);
-  //   get4DayLaterTemp(currentHourlyTimeArray, currentHourlyTempArray);
-
-  //   get5DayLaterTemp(currentHourlyTimeArray, currentHourlyTempArray);
-
-  //   get6DayLaterTemp(currentHourlyTimeArray, currentHourlyTempArray);
-
-  //   get7DayLaterTemp(currentHourlyTimeArray, currentHourlyTempArray);
-
-  //   console.log(todayHourlyTemperature);
-  //   console.log(tommorrowHourlyTemp);
-  //   console.log(ThreeDayLaterTemp);
-  //   console.log(FourDayLaterTemp);
-  //   console.log(FiveDayLaterTemp);
-  //   console.log(SixDayLaterTemp);
-  //   console.log(SevenDayLaterTemp);
-  //   console.log(currentHourlyTempArray);
-  //   console.log(currentHourlyTimeArray);
+  console.log("----- Seventh Day's Temperature Details -----");
+  console.log(seventhDayTempDetails);
 };
 
 export default formatHourlyTime;
