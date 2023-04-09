@@ -14,7 +14,7 @@ const getProbabilityOverHours = (valueArray: number[]): number => {
 
   const probabilityOfBothHappening = valueArray.reduce(
     (accumulator, currentValue) => {
-      return accumulator * (1 - currentValue / 100);
+      return accumulator * (currentValue / 100);
     },
     1
   );
