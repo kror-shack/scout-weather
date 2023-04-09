@@ -44,10 +44,11 @@ const getWeatherData = (cityName: string) => {
   }
   async function getDataFromMetoeWeather() {
     let response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.lat}&longitude=${coordinates.lon}&hourly=temperature_2m,precipitation_probability,precipitation,rain,showers,snowfall,uv_index&daily=weathercode,sunrise,sunset,uv_index_max&time&past_days=1&timezone=auto`
+      `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.lat}&longitude=${coordinates.lon}&hourly=temperature_2m,weathercode,precipitation_probability,precipitation,rain,showers,snowfall,uv_index&daily=weathercode,sunrise,sunset,uv_index_max&time&past_days=1&timezone=auto`
     );
     let data = await response.json();
     formatForecastDailyTempDetails({ data: data, unit: "celcius" });
+
     console.log("the data from the meteo API -------------------");
     console.log(data);
   }

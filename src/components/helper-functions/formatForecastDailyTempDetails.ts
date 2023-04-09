@@ -1,4 +1,6 @@
 import getCurrentHour from "./getCurrentHour";
+import getProbabilityOverHours from "./getProbabilityOverHours";
+import getWeatherCodeOverHours from "./getWeatherCodeOverHours";
 
 type Props = {
   data: Data;
@@ -10,7 +12,7 @@ type Data = {
     sunrise: string[];
     sunset: string[];
     uv_index_max: number[];
-    weathecode: number[];
+    weathercode: number[];
   };
   hourly: {
     time: string[];
@@ -18,6 +20,7 @@ type Data = {
     precipitation_probability: number[];
     rain: number[];
     snowfall: number[];
+    weathercode: number[];
   };
 };
 
@@ -33,7 +36,14 @@ type DailyWeatherDetails = {
   min_temp: number;
   uvMax: number;
   sunrise: string;
+  weatherCode: { morning: number; night: number; overall: number };
   sunset: string;
+
+  preception: {
+    morning: number;
+    night: number;
+    overall: number;
+  };
   hourly: {
     [hour: string]: HourlyWeatherDetails;
   };
@@ -54,7 +64,8 @@ const formatHourlyTime = ({ data, unit }: Props) => {
   let unformatteddailySunriseArray = data.daily.sunrise;
   let unformatteddailySunsetArray = data.daily.sunset;
   let dailyUvIndex = data.daily.uv_index_max;
-  let dailyWeatherCode = data.daily.weathecode;
+  let dailyWeatherCode = data.daily.weathercode;
+  let hourlyWeatherCodeArray = data.hourly.weathercode;
 
   function convertTo12HourFormat(time24: string): string {
     const [hours, minutes] = time24.split(":");
@@ -104,7 +115,11 @@ const formatHourlyTime = ({ data, unit }: Props) => {
   //index: start point of the array
   // day: from yesterday = 0
   function getWeatherDetailsForDay(index: number, day: number) {
-    let dayTempDetails = { hourly: {} } as DailyWeatherDetails;
+    let dayTempDetails = {
+      hourly: {},
+      preception: {},
+      weatherCode: {},
+    } as DailyWeatherDetails;
     let highestTemp = hourlyTempArray[index];
     let lowestTemp = hourlyTempArray[index];
     for (let i = index; i < index + 23; i++) {
@@ -133,47 +148,76 @@ const formatHourlyTime = ({ data, unit }: Props) => {
         dayTempDetails.hourly[hour].snow = Math.ceil(hourlySnowFallArray[i]);
       }
     }
+    dayTempDetails.preception.morning = getProbabilityOverHours(
+      hourlyPercipitaionProbabilityArray.slice(index, index + 12)
+    );
+    dayTempDetails.preception.night = getProbabilityOverHours(
+      hourlyPercipitaionProbabilityArray.slice(index + 12, index + 24)
+    );
+    dayTempDetails.preception.overall = getProbabilityOverHours([
+      dayTempDetails.preception.morning,
+      dayTempDetails.preception.night,
+    ]);
+
     dayTempDetails.max_temp = Math.ceil(highestTemp);
     dayTempDetails.min_temp = Math.ceil(lowestTemp);
     dayTempDetails.uvMax = Math.ceil(dailyUvIndex[day]);
     dayTempDetails.sunrise = dailySunriseArray[day];
     dayTempDetails.sunset = dailySunsetArray[day];
+    dayTempDetails.weatherCode.overall = dailyWeatherCode[day];
+    dayTempDetails.weatherCode.morning = getWeatherCodeOverHours(
+      hourlyWeatherCodeArray.slice(index, index + 12)
+    );
+    dayTempDetails.weatherCode.night = getWeatherCodeOverHours(
+      hourlyWeatherCodeArray.slice(index + 12, index + 24)
+    );
 
     return dayTempDetails;
   }
 
-  let yesterdayTempDetails = getWeatherDetailsForDay(0, 0);
-  let todayTempDetails = getWeatherDetailsForDay(23, 1);
+  // let yesterdayTempDetails = getWeatherDetailsForDay(0, 0);
+  // let todayTempDetails = getWeatherDetailsForDay(23, 1);
   let secondDayTempDetails = getWeatherDetailsForDay(47, 2);
-  let thirdDayTempDetails = getWeatherDetailsForDay(71, 3);
-  let fourthDayTempDetails = getWeatherDetailsForDay(95, 4);
-  let fifthDayTempDetails = getWeatherDetailsForDay(119, 5);
-  let sixthDayTempDetails = getWeatherDetailsForDay(143, 6);
-  let seventhDayTempDetails = getWeatherDetailsForDay(167, 7);
+  // let thirdDayTempDetails = getWeatherDetailsForDay(71, 3);
+  // let fourthDayTempDetails = getWeatherDetailsForDay(95, 4);
+  // let fifthDayTempDetails = getWeatherDetailsForDay(119, 5);
+  // let sixthDayTempDetails = getWeatherDetailsForDay(143, 6);
+  // let seventhDayTempDetails = getWeatherDetailsForDay(167, 7);
 
-  console.log("----- Yesterday's Temperature Details -----");
-  console.log(yesterdayTempDetails);
+  // console.log("----- Yesterday's Temperature Details -----");
+  // console.log(yesterdayTempDetails);
 
-  console.log("----- Today's Temperature Details -----");
-  console.log(todayTempDetails);
+  // console.log("----- Today's Temperature Details -----");
+  // console.log(todayTempDetails);
 
-  console.log("----- Second Day's Temperature Details -----");
+  // console.log("----- Second Day's Temperature Details -----");
   console.log(secondDayTempDetails);
 
-  console.log("----- Third Day's Temperature Details -----");
-  console.log(thirdDayTempDetails);
+  // console.log("----- Third Day's Temperature Details -----");
+  // console.log(thirdDayTempDetails);
 
-  console.log("----- Fourth Day's Temperature Details -----");
-  console.log(fourthDayTempDetails);
+  // console.log("----- Fourth Day's Temperature Details -----");
+  // console.log(fourthDayTempDetails);
 
-  console.log("----- Fifth Day's Temperature Details -----");
-  console.log(fifthDayTempDetails);
+  // console.log("----- Fifth Day's Temperature Details -----");
+  // console.log(fifthDayTempDetails);
 
-  console.log("----- Sixth Day's Temperature Details -----");
-  console.log(sixthDayTempDetails);
+  // console.log("----- Sixth Day's Temperature Details -----");
+  // console.log(sixthDayTempDetails);
 
-  console.log("----- Seventh Day's Temperature Details -----");
-  console.log(seventhDayTempDetails);
+  // console.log("----- Seventh Day's Temperature Details -----");
+  // console.log(seventhDayTempDetails);
+
+  return {
+    // yesterdayTempDetails,
+    // todayTempDetails,
+    // secondDayTempDetails,
+    // thirdDayTempDetails,
+    // fourthDayTempDetails,
+    // fifthDayTempDetails,
+    // sixthDayTempDetails,
+    // seventhDayTempDetails,
+  };
 };
 
 export default formatHourlyTime;
