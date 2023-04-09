@@ -1,6 +1,8 @@
-import getCurrentHour from "./getCurrentHour";
-import getProbabilityOverHours from "./getProbabilityOverHours";
-import getWeatherCodeOverHours from "./getWeatherCodeOverHours";
+import {
+  getCurrentHour,
+  getProbabilityOverHours,
+  getWeatherCodeOverHours,
+} from "./formatHelperFunctions";
 
 type Props = {
   data: Data;

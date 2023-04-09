@@ -1,5 +1,5 @@
-import convertKelvinToCelcius from "../helper-functions/convertKelvinToCelcius";
-import formatForecastDailyTempDetails from "../helper-functions/formatForecastDailyTempDetails";
+import { convertKelvinToCelcius } from "./formatHelperFunctions";
+import formatForecastDailyTempDetails from "./formatWeatherData";
 
 interface TodayWeatherMainDetails {
   name: string;
