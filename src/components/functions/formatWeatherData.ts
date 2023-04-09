@@ -54,8 +54,8 @@ type DailyWeatherDetails = {
 const formatHourlyTime = ({ data, unit }: Props) => {
   let thisHour = getCurrentHour();
 
-  console.log("checking the propppsppsss");
-  console.log(data);
+  // console.log("checking the propppsppsss");
+  // console.log(data);
 
   let unformattedHourlyimeArray = data.hourly.time;
   let hourlyTempArray = data.hourly.temperature_2m;
@@ -185,39 +185,39 @@ const formatHourlyTime = ({ data, unit }: Props) => {
   let sixthDayTempDetails = getWeatherDetailsForDay(143, 6);
   let seventhDayTempDetails = getWeatherDetailsForDay(167, 7);
 
-  console.log("----- Yesterday's Temperature Details -----");
-  console.log(yesterdayTempDetails);
+  // console.log("----- Yesterday's Temperature Details -----");
+  // console.log(yesterdayTempDetails);
 
-  console.log("----- Today's Temperature Details -----");
-  console.log(todayTempDetails);
+  // console.log("----- Today's Temperature Details -----");
+  // console.log(todayTempDetails);
 
-  console.log("----- Second Day's Temperature Details -----");
-  console.log(secondDayTempDetails);
+  // console.log("----- Second Day's Temperature Details -----");
+  // console.log(secondDayTempDetails);
 
-  console.log("----- Third Day's Temperature Details -----");
-  console.log(thirdDayTempDetails);
+  // console.log("----- Third Day's Temperature Details -----");
+  // console.log(thirdDayTempDetails);
 
-  console.log("----- Fourth Day's Temperature Details -----");
-  console.log(fourthDayTempDetails);
+  // console.log("----- Fourth Day's Temperature Details -----");
+  // console.log(fourthDayTempDetails);
 
-  console.log("----- Fifth Day's Temperature Details -----");
-  console.log(fifthDayTempDetails);
+  // console.log("----- Fifth Day's Temperature Details -----");
+  // console.log(fifthDayTempDetails);
 
-  console.log("----- Sixth Day's Temperature Details -----");
-  console.log(sixthDayTempDetails);
+  // console.log("----- Sixth Day's Temperature Details -----");
+  // console.log(sixthDayTempDetails);
 
-  console.log("----- Seventh Day's Temperature Details -----");
-  console.log(seventhDayTempDetails);
+  // console.log("----- Seventh Day's Temperature Details -----");
+  // console.log(seventhDayTempDetails);
 
   return {
-    // yesterdayTempDetails,
-    // todayTempDetails,
-    // secondDayTempDetails,
-    // thirdDayTempDetails,
-    // fourthDayTempDetails,
-    // fifthDayTempDetails,
-    // sixthDayTempDetails,
-    // seventhDayTempDetails,
+    yesterdayTempDetails,
+    todayTempDetails,
+    secondDayTempDetails,
+    thirdDayTempDetails,
+    fourthDayTempDetails,
+    fifthDayTempDetails,
+    sixthDayTempDetails,
+    seventhDayTempDetails,
   };
 };
 

@@ -7,8 +7,14 @@ type Props = {
 
 const DisplayPageBody = ({ cityName }: Props) => {
   const [cityData, setCityData] = useState<[] | undefined>();
-  function handleButtonClick() {
-    if (cityName) console.log(getWeatherData(cityName));
+  async function handleButtonClick() {
+    if (cityName) {
+      console.log("in the clickkkk functijon");
+      let { todayWeatherMainDetails, forecastWeatherDetails } =
+        await getWeatherData(cityName);
+      console.log(todayWeatherMainDetails);
+      console.log(forecastWeatherDetails);
+    }
   }
 
   return (

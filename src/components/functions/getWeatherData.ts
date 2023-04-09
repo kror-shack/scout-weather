@@ -15,8 +15,9 @@ type Coordinates = {
   lat: number;
 };
 
-const getWeatherData = (cityName: string) => {
+const getWeatherData = async (cityName: string) => {
   let todayWeatherMainDetails = {} as TodayWeatherMainDetails;
+  let forecastWeatherDetails = {};
   let coordinates = {} as Coordinates;
 
   async function getDataFromOpenWeather() {
@@ -26,7 +27,7 @@ const getWeatherData = (cityName: string) => {
         { mode: "cors" }
       );
       let data = await response.json();
-      console.log(data);
+      // console.log(data);
       todayWeatherMainDetails.description = data.weather[0].description;
       todayWeatherMainDetails.name = data.name;
       todayWeatherMainDetails.feelsLike = convertKelvinToCelcius(
@@ -34,7 +35,7 @@ const getWeatherData = (cityName: string) => {
       );
       todayWeatherMainDetails.temp = convertKelvinToCelcius(data.main.temp);
 
-      console.log(todayWeatherMainDetails);
+      // console.log(todayWeatherMainDetails);
 
       coordinates.lon = data.coord.lon;
       coordinates.lat = data.coord.lat;
@@ -47,10 +48,13 @@ const getWeatherData = (cityName: string) => {
       `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.lat}&longitude=${coordinates.lon}&hourly=temperature_2m,weathercode,precipitation_probability,precipitation,rain,showers,snowfall,uv_index&daily=weathercode,sunrise,sunset,uv_index_max&time&past_days=1&timezone=auto`
     );
     let data = await response.json();
-    formatForecastDailyTempDetails({ data: data, unit: "celcius" });
+    forecastWeatherDetails = formatForecastDailyTempDetails({
+      data: data,
+      unit: "celcius",
+    });
 
-    console.log("the data from the meteo API -------------------");
-    console.log(data);
+    // console.log("the data from the meteo API -------------------");
+    // console.log(data);
   }
 
   async function fetchData() {
@@ -62,9 +66,18 @@ const getWeatherData = (cityName: string) => {
     }
   }
 
-  fetchData();
+  await fetchData();
 
-  return {};
+  console.log(
+    "-----------this is the end of the get weather funcdtion ----------"
+  );
+  console.log(todayWeatherMainDetails);
+  console.log(forecastWeatherDetails);
+
+  return {
+    todayWeatherMainDetails,
+    forecastWeatherDetails,
+  };
 };
 
 export default getWeatherData;

@@ -5,8 +5,6 @@ const convertKelvinToCelcius = (kelvin: number): number => {
 };
 
 const getProbabilityOverHours = (valueArray: number[]): number => {
-  console.log(valueArray);
-
   const probabilityOfNotHappening = valueArray.reduce(
     (accumulator, currentValue) => {
       return accumulator * (1 - currentValue / 100);
