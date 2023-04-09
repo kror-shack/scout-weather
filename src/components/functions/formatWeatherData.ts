@@ -62,6 +62,7 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
   let hourlyPercipitaionProbabilityArray =
     data.hourly.precipitation_probability;
   let hourlyRainArray = data.hourly.rain;
+  console.log(hourlyRainArray);
   let hourlySnowFallArray = data.hourly.snowfall;
   let unformatteddailySunriseArray = data.daily.sunrise;
   let unformatteddailySunsetArray = data.daily.sunset;
@@ -133,21 +134,21 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
       let hour = convertHourFormat(i - index);
 
       dayTempDetails.hourly[hour] = {
-        temp: Math.ceil(hourlyTempArray[i]),
-        percipiation_probability: Math.ceil(
+        temp: Math.round(hourlyTempArray[i]),
+        percipiation_probability: Math.round(
           hourlyPercipitaionProbabilityArray[i]
         ),
       };
       if (
-        hourlyRainArray[i] > hourlySnowFallArray[i] &&
+        hourlyRainArray[i] >= hourlySnowFallArray[i] &&
         hourlyPercipitaionProbabilityArray[i] !== 0
       ) {
-        dayTempDetails.hourly[hour].rain = Math.ceil(hourlyRainArray[i]);
+        dayTempDetails.hourly[hour].rain = Math.round(hourlyRainArray[i]);
       } else if (
         hourlyRainArray[i] < hourlySnowFallArray[i] &&
         hourlyPercipitaionProbabilityArray[i] !== 0
       ) {
-        dayTempDetails.hourly[hour].snow = Math.ceil(hourlySnowFallArray[i]);
+        dayTempDetails.hourly[hour].snow = Math.round(hourlySnowFallArray[i]);
       }
     }
     dayTempDetails.preception.morning = getProbabilityOverHours(
@@ -160,9 +161,9 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
       hourlyPercipitaionProbabilityArray.slice(index, index + 24)
     );
 
-    dayTempDetails.max_temp = Math.ceil(highestTemp);
-    dayTempDetails.min_temp = Math.ceil(lowestTemp);
-    dayTempDetails.uvMax = Math.ceil(dailyUvIndex[day]);
+    dayTempDetails.max_temp = Math.round(highestTemp);
+    dayTempDetails.min_temp = Math.round(lowestTemp);
+    dayTempDetails.uvMax = Math.round(dailyUvIndex[day]);
     dayTempDetails.sunrise = dailySunriseArray[day];
     dayTempDetails.sunset = dailySunsetArray[day];
     dayTempDetails.weatherCode.overall = dailyWeatherCode[day];

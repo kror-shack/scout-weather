@@ -53,8 +53,8 @@ const getWeatherData = async (cityName: string, tempUnit: "C" | "F") => {
       tempUnit: "C",
     });
 
-    // console.log("the data from the meteo API -------------------");
-    // console.log(data);
+    console.log("the data from the meteo API -------------------");
+    console.log(data);
   }
 
   async function fetchData() {
