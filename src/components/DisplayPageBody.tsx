@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import getWeatherData from "./getWeatherData";
-import formatHourlyTime from "./helper-functions/formatHourlyTime";
+import getWeatherData from "./functions/getWeatherData";
 
 type Props = {
   cityName: string | undefined;

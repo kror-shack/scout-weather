@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DisplayPageBody from "./DisplayPageBody";
-import getWeatherData from "./getWeatherData";
+import getWeatherData from "./functions/getWeatherData";
 import Header from "./Header";
 
 function DisplayPage() {
