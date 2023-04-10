@@ -31,6 +31,7 @@ type HourlyWeatherDetails = {
   percipiation_probability: number;
   rain?: number;
   snow?: number;
+  weatherCode: number;
 };
 
 type DailyWeatherDetails = {
@@ -138,6 +139,7 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
         percipiation_probability: Math.round(
           hourlyPercipitaionProbabilityArray[i]
         ),
+        weatherCode: hourlyWeatherCodeArray[i],
       };
 
       if (
