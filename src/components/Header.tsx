@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { DebounceInput } from "react-debounce-input";
+import getCitiesWIthAutocomplete from "./functions/getCitiesWithAutocomplete";
+import "../styles/Header.scss";
 
 type CityName = {
   cityName: string | undefined;
@@ -11,8 +14,12 @@ type Props = {
 const Header = ({ setCityName }: Props) => {
   const [searchTitle, setSearchTitle] = useState<string | undefined>();
 
-  function handleSearchInputChange(e: React.FormEvent<HTMLInputElement>) {
-    setSearchTitle(e.currentTarget.value);
+  function handleSearchInputChange(e: string) {
+    setSearchTitle(e);
+    console.log("on change input ");
+    if (e.length > 3) {
+      getCitiesWIthAutocomplete(e);
+    }
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -24,10 +31,10 @@ const Header = ({ setCityName }: Props) => {
   return (
     <div>
       <form action="" onSubmit={(e) => handleSubmit(e)}>
-        <input
-          onChange={(e) => handleSearchInputChange(e)}
+        <DebounceInput
+          debounceTimeout={1500}
+          onChange={(event) => handleSearchInputChange(event.target.value)}
           type="text"
-          value={searchTitle}
         />
         <button type="submit">Search</button>
       </form>

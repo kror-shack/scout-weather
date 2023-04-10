@@ -55,9 +55,6 @@ type DailyWeatherDetails = {
 const formatHourlyTime = ({ data, tempUnit }: Props) => {
   let thisHour = getCurrentHour();
 
-  // console.log("checking the propppsppsss");
-  // console.log(data);
-
   let unformattedHourlyimeArray = data.hourly.time;
   let hourlyTempArray = data.hourly.temperature_2m;
   let hourlyPercipitaionProbabilityArray =
