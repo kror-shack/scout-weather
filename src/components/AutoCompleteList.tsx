@@ -11,14 +11,9 @@ type CityData = {
 type Props = {
   cityNameList: CityData[] | undefined;
   setCityDetails: React.Dispatch<React.SetStateAction<CityDetails>>;
-  setCityDefinedState: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const AutoCompleteList = ({
-  cityNameList,
-  setCityDetails,
-  setCityDefinedState,
-}: Props) => {
+const AutoCompleteList = ({ cityNameList, setCityDetails }: Props) => {
   console.log(cityNameList);
 
   function handleButtonClick(cityName: string) {
@@ -26,7 +21,6 @@ const AutoCompleteList = ({
       ...prev,
       name: cityName,
     }));
-    setCityDefinedState((prev) => !prev);
   }
 
   return (

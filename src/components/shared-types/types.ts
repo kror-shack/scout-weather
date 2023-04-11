@@ -8,3 +8,4 @@ type CityCoordinates = {
 };
 
 export type CityDetails = CityName | CityCoordinates;
+export type Temp = "C" | "F";
