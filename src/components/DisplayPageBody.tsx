@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import getWeatherData from "./functions/getWeatherData";
+import { CityDetails } from "./shared-types/types";
 
 type TempUnits = "C" | "F";
 
 type Props = {
-  cityName: string | undefined;
+  cityDetails: CityDetails | undefined;
   tempUnit: TempUnits;
 };
 
-const DisplayPageBody = ({ cityName, tempUnit }: Props) => {
+const DisplayPageBody = ({ cityDetails, tempUnit }: Props) => {
   const [cityData, setCityData] = useState<[] | undefined>();
   async function handleButtonClick() {
-    if (cityName) {
+    if (cityDetails) {
       console.log("in the clickkkk functijon");
       let { todayWeatherMainDetails, forecastWeatherDetails } =
-        await getWeatherData(cityName, tempUnit);
+        await getWeatherData({ cityDetails, tempUnit });
       console.log(todayWeatherMainDetails);
       console.log(forecastWeatherDetails);
     }
@@ -22,7 +23,9 @@ const DisplayPageBody = ({ cityName, tempUnit }: Props) => {
 
   return (
     <div>
-      <p>{cityName}</p>
+      <p>
+        {cityDetails ? ("name" in cityDetails ? cityDetails.name : "") : ""}
+      </p>
       <button onClick={() => handleButtonClick()}>Fetch Data</button>
     </div>
   );

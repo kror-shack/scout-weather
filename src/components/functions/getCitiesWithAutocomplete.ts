@@ -1,14 +1,15 @@
-type cityData = {
+type CityData = {
   city: string;
   countryCode: string;
+  id: number;
 };
 
 type Data = {
-  data: cityData[];
+  data: CityData[];
 };
 
-const getCitiesWIthAutocomplete = (cityPrefix: string): string[] => {
-  let cityList: string[] | undefined = [];
+const getCitiesWithAutocomplete = async (cityPrefix: string) => {
+  let cityList: CityData[] | undefined = [];
   const options = {
     method: "GET",
     headers: {
@@ -26,16 +27,21 @@ const getCitiesWIthAutocomplete = (cityPrefix: string): string[] => {
     let data: Data = await response.json();
     cityList = [];
     for (let i = 0; i < data.data.length; i++) {
-      cityList.push(`${data.data[i].city}, ${data.data[i].countryCode}`);
+      cityList.push({
+        city: data.data[i].city,
+        countryCode: data.data[i].countryCode,
+        id: data.data[i].id,
+      });
     }
     console.log(cityList);
 
     console.log("the data from the autocompletion API -------------------");
     console.log(data);
   }
-  fetchData();
+  await fetchData();
+  console.log("done with fetching the data now i gotta return");
 
   return cityList;
 };
 
-export default getCitiesWIthAutocomplete;
+export default getCitiesWithAutocomplete;

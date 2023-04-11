@@ -1,5 +1,6 @@
 import { convertKelvinToCelcius } from "./formatHelperFunctions";
 import formatForecastDailyTempDetails from "./formatWeatherData";
+import { CityDetails } from "../shared-types/types";
 
 interface TodayWeatherMainDetails {
   name: string;
@@ -15,7 +16,12 @@ type Coordinates = {
   lat: number;
 };
 
-const getWeatherData = async (cityName: string, tempUnit: "C" | "F") => {
+type Props = {
+  cityDetails: CityDetails;
+  tempUnit: "C" | "F";
+};
+
+const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
   let todayWeatherMainDetails = {} as TodayWeatherMainDetails;
   let forecastWeatherDetails = {};
   let coordinates = {} as Coordinates;
@@ -23,7 +29,11 @@ const getWeatherData = async (cityName: string, tempUnit: "C" | "F") => {
   async function getDataFromOpenWeather() {
     try {
       let response = await fetch(
-        `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=0bfd43c822d3aebccceaae1fd3fb1173`,
+        `http://api.openweathermap.org/data/2.5/weather?q=${
+          "name" in cityDetails
+            ? cityDetails.name
+            : `${cityDetails.lat},${cityDetails.lon}`
+        }&APPID=0bfd43c822d3aebccceaae1fd3fb1173`,
         { mode: "cors" }
       );
       let data = await response.json();
@@ -45,7 +55,11 @@ const getWeatherData = async (cityName: string, tempUnit: "C" | "F") => {
   }
   async function getDataFromMetoeWeather() {
     let response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.lat}&longitude=${coordinates.lon}&hourly=temperature_2m,weathercode,precipitation_probability,precipitation,rain,showers,snowfall,uv_index&daily=weathercode,sunrise,sunset,uv_index_max&time&past_days=1&timezone=auto`
+      `https://api.open-meteo.com/v1/forecast?latitude=${
+        "name" in cityDetails ? coordinates.lat : cityDetails.lat
+      }&longitude=${
+        "name" in cityDetails ? coordinates.lat : cityDetails.lat
+      }&hourly=temperature_2m,weathercode,precipitation_probability,precipitation,rain,showers,snowfall,uv_index&daily=weathercode,sunrise,sunset,uv_index_max&time&past_days=1&timezone=auto`
     );
     let data = await response.json();
     forecastWeatherDetails = formatForecastDailyTempDetails({
@@ -59,8 +73,17 @@ const getWeatherData = async (cityName: string, tempUnit: "C" | "F") => {
 
   async function fetchData() {
     try {
-      await getDataFromOpenWeather();
-      await getDataFromMetoeWeather();
+      //if there are no coordinates then openWeather
+      //provides the cordinates for meteoWeather
+      if ("name" in cityDetails) {
+        await getDataFromOpenWeather();
+        await getDataFromMetoeWeather();
+      } else {
+        await Promise.all([
+          getDataFromOpenWeather(),
+          getDataFromMetoeWeather(),
+        ]);
+      }
     } catch (err) {
       console.error(err);
     }
