@@ -29,10 +29,10 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
   async function getDataFromOpenWeather() {
     try {
       let response = await fetch(
-        `http://api.openweathermap.org/data/2.5/weather?q=${
+        `http://api.openweathermap.org/data/2.5/weather?${
           "name" in cityDetails
-            ? cityDetails.name
-            : `${cityDetails.lat},${cityDetails.lon}`
+            ? `q=${cityDetails.name}`
+            : `lat=${cityDetails.lat}&lon=${cityDetails.lon}`
         }&APPID=0bfd43c822d3aebccceaae1fd3fb1173`,
         { mode: "cors" }
       );

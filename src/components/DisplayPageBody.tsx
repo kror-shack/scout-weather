@@ -21,12 +21,27 @@ const DisplayPageBody = ({ cityDetails, tempUnit }: Props) => {
     }
   }
 
+  async function handleSomething() {
+    try {
+      let response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=39.8983168&lon=32.7712768
+&appid=0bfd43c822d3aebccceaae1fd3fb1173`,
+        { mode: "cors" }
+      );
+      let data = await response.json();
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <div>
       <p>
         {cityDetails ? ("name" in cityDetails ? cityDetails.name : "") : ""}
       </p>
       <button onClick={() => handleButtonClick()}>Fetch Data</button>
+      <button onClick={handleSomething}>THis is a button</button>
     </div>
   );
 };

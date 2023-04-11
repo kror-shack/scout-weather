@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/AutoCompleteList.scss";
+import getUserLocation from "./functions/getUserLocation";
 import { CityDetails } from "./shared-types/types";
 
 type CityData = {
@@ -14,6 +15,10 @@ type Props = {
 };
 
 const AutoCompleteList = ({ cityNameList, setCityDetails }: Props) => {
+  const [location, setLocation] = useState<{
+    lat: number | null;
+    lon: number | null;
+  }>();
   console.log(cityNameList);
 
   function handleButtonClick(cityName: string) {
@@ -23,8 +28,30 @@ const AutoCompleteList = ({ cityNameList, setCityDetails }: Props) => {
     }));
   }
 
+  function handleLocationOnClick() {
+    getUserLocation(setLocation);
+    if (location) {
+      setCityDetails((prev) => ({
+        ...prev,
+        lat: location.lat,
+        lon: location.lon,
+      }));
+    }
+  }
+
+  useEffect(() => {
+    if (location) {
+      setCityDetails((prev) => ({
+        ...prev,
+        lat: location.lat,
+        lon: location.lon,
+      }));
+    }
+  }, [location]);
+
   return (
     <div className="Autocomplete-list">
+      <button onClick={() => handleLocationOnClick()}>Use Your Location</button>
       {cityNameList
         ? cityNameList.map((listElement, i) => {
             return (
