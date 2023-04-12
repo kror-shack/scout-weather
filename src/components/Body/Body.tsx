@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import getWeatherData from "./functions/getWeatherData";
-import { CityDetails } from "./shared-types/types";
+import getWeatherData from "../../utils/getWeatherData";
+import { CityDetails } from "../../types/types";
 
 type TempUnits = "C" | "F";
 
@@ -9,7 +9,7 @@ type Props = {
   tempUnit: TempUnits;
 };
 
-const DisplayPageBody = ({ cityDetails, tempUnit }: Props) => {
+const Body = ({ cityDetails, tempUnit }: Props) => {
   const [cityData, setCityData] = useState<[] | undefined>();
   async function handleButtonClick() {
     if (cityDetails) {
@@ -46,4 +46,4 @@ const DisplayPageBody = ({ cityDetails, tempUnit }: Props) => {
   );
 };
 
-export default DisplayPageBody;
+export default Body;

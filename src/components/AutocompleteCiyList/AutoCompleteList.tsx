@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "../styles/AutoCompleteList.scss";
-import getUserLocation from "./functions/getUserLocation";
-import { CityDetails } from "./shared-types/types";
+import "./AutoCompleteList.scss";
+import getUserLocation from "../../utils/getUserLocation";
+import { CityDetails } from "../../types/types";
 
 type CityData = {
   city: string;

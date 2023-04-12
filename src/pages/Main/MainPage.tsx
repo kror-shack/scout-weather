@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import DisplayPageBody from "./DisplayPageBody";
-import Header from "./Header";
-import { CityDetails, Temp } from "./shared-types/types";
+import Body from "../../components/Body/Body";
+import Header from "../../components/Header/Header";
+import { CityDetails, Temp } from "../../types/types";
 
 function DisplayPage() {
   const [cityDetails, setCityDetails] = useState<CityDetails | undefined>();
@@ -9,7 +9,7 @@ function DisplayPage() {
   return (
     <div>
       <Header cityDetails={cityDetails} setCityDetails={setCityDetails} />
-      <DisplayPageBody cityDetails={cityDetails} tempUnit={tempUnit} />
+      <Body cityDetails={cityDetails} tempUnit={tempUnit} />
     </div>
   );
 }

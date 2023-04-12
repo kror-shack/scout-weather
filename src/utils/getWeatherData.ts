@@ -1,6 +1,6 @@
 import { convertKelvinToCelcius } from "./formatHelperFunctions";
 import formatForecastDailyTempDetails from "./formatWeatherData";
-import { CityDetails } from "../shared-types/types";
+import { CityDetails } from "../types/types";
 
 interface TodayWeatherMainDetails {
   name: string;

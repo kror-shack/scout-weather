@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ContactPage from "./components/ContactPage";
-import DisplayPage from "./components/DisplayPage";
+import ContactPage from "./pages/Contact/ContactPage";
+import DisplayPage from "./pages/Main/MainPage";
 
 const App = () => {
   return (

@@ -26,6 +26,11 @@ const getUserLocation = async (setLocation: any) => {
               console.log(position.coords.latitude, position.coords.longitude);
               lat = position.coords.latitude;
               lon = position.coords.longitude;
+              setLocation((prev: any) => ({
+                ...prev,
+                lat: lat,
+                lon: lon,
+              }));
             });
             console.log(result.state);
           } else if (result.state === "denied") {

@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import getCitiesWithAutocomplete from "./functions/getCitiesWithAutocomplete";
-import "../styles/Header.scss";
+import getCitiesWithAutocomplete from "../../utils/getCitiesWithAutocomplete";
+import "./Header.scss";
 import debounce from "lodash.debounce";
-import AutoCompleteList from "./AutoCompleteList";
-import { CityDetails } from "./shared-types/types";
+import AutoCompleteList from "../AutocompleteCiyList/AutoCompleteList";
+import { CityDetails } from "../../types/types";
 import { time } from "console";
 
 type Props = {
