@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import getWeatherData from "../../utils/getWeatherData";
-import { CityDetails } from "../../types/types";
+import {
+  CityDetails,
+  TodayWeatherMainDetails,
+  DailyWeatherDetails,
+  ForecastDetails,
+} from "../../types/types";
+import MainDetails from "../MainDetails/MainDetails";
+import "./Body.scss";
+import HourlyDetails from "../HourlyDetails/HourlyDetails";
+import Suggestions from "../Suggestions/Suggestions";
+import WeeklyDetails from "../WeeklyDetails/WeeklyDetails";
+import AdditionalDetails from "../AdditionalDetails/AdditionalDetails";
 
 type TempUnits = "C" | "F";
 
@@ -11,37 +22,55 @@ type Props = {
 
 const Body = ({ cityDetails, tempUnit }: Props) => {
   const [cityData, setCityData] = useState<[] | undefined>();
+  const [hourlyWeatherDetails, setHourlyWeatherDetails] =
+    useState<DailyWeatherDetails>();
+  const [mainWeatherDetials, setMainWeatherDetails] =
+    useState<TodayWeatherMainDetails>();
+  const [weeklyWeatherDetails, setWeeeklyWeatherDetails] =
+    useState<ForecastDetails>();
+
   async function handleButtonClick() {
     if (cityDetails) {
       console.log("in the clickkkk functijon");
       let { todayWeatherMainDetails, forecastWeatherDetails } =
         await getWeatherData({ cityDetails, tempUnit });
+      setMainWeatherDetails(todayWeatherMainDetails);
+      setHourlyWeatherDetails(forecastWeatherDetails.next24HourTempDetails);
+      setWeeeklyWeatherDetails(forecastWeatherDetails);
       console.log(todayWeatherMainDetails);
+
       console.log(forecastWeatherDetails);
     }
   }
-
-  async function handleSomething() {
-    try {
-      let response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=39.8983168&lon=32.7712768
-&appid=0bfd43c822d3aebccceaae1fd3fb1173`,
-        { mode: "cors" }
-      );
-      let data = await response.json();
-      console.log(data);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
   return (
-    <div>
-      <p>
+    <div className="Body">
+      {/* <p>
         {cityDetails ? ("name" in cityDetails ? cityDetails.name : "") : ""}
-      </p>
+      </p> */}
+      {mainWeatherDetials ? (
+        <MainDetails mainDetails={mainWeatherDetials} />
+      ) : (
+        ""
+      )}
+      {hourlyWeatherDetails ? (
+        <HourlyDetails hourlyDetails={hourlyWeatherDetails} />
+      ) : (
+        ""
+      )}
+      <Suggestions />
+      {weeklyWeatherDetails ? (
+        <WeeklyDetails weeklyDetails={weeklyWeatherDetails} />
+      ) : (
+        ""
+      )}
+      {weeklyWeatherDetails ? (
+        <AdditionalDetails
+          additionalDetails={weeklyWeatherDetails.todayTempDetails}
+        />
+      ) : (
+        ""
+      )}
       <button onClick={() => handleButtonClick()}>Fetch Data</button>
-      <button onClick={handleSomething}>THis is a button</button>
     </div>
   );
 };

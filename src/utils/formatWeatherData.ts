@@ -4,6 +4,13 @@ import {
   getWeatherCodeOverHours,
 } from "./formatHelperFunctions";
 
+import {
+  DailyWeatherDetails,
+  ForecastDetails,
+  HourlyWeatherDetails,
+} from "../types/types";
+import uniqid from "uniqid";
+import getDayFromDate from "./getDayFromDate";
 type Props = {
   data: Data;
   tempUnit: "C" | "F";
@@ -15,6 +22,7 @@ type Data = {
     sunset: string[];
     uv_index_max: number[];
     weathercode: number[];
+    time: string[];
   };
   hourly: {
     time: string[];
@@ -26,33 +34,9 @@ type Data = {
   };
 };
 
-type HourlyWeatherDetails = {
-  temp: number;
-  percipiation_probability: number;
-  rain?: number;
-  snow?: number;
-  weatherCode: number;
-};
-
-type DailyWeatherDetails = {
-  max_temp: number;
-  min_temp: number;
-  uvMax: number;
-  sunrise: string;
-  weatherCode: { morning: number; night: number; overall: number };
-  sunset: string;
-
-  preception: {
-    morning: number;
-    night: number;
-    overall: number;
-  };
-  hourly: {
-    [hour: string]: HourlyWeatherDetails;
-  };
-};
-
 const formatHourlyTime = ({ data, tempUnit }: Props) => {
+  console.log("this be the uniqid");
+  console.log(uniqid());
   let thisHour = getCurrentHour();
 
   let unformattedHourlyimeArray = data.hourly.time;
@@ -67,6 +51,7 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
   let dailyUvIndex = data.daily.uv_index_max;
   let dailyWeatherCode = data.daily.weathercode;
   let hourlyWeatherCodeArray = data.hourly.weathercode;
+  let dailyNameArray = data.daily.time;
 
   function convertTo12HourFormat(time24: string): string {
     const [hours, minutes] = time24.split(":");
@@ -133,6 +118,7 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
 
       dayTempDetails.hourly[hour] = {
         temp: Math.round(hourlyTempArray[i]),
+        key: uniqid(),
         percipiation_probability: Math.round(
           hourlyPercipitaionProbabilityArray[i]
         ),
@@ -167,6 +153,7 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
       dayTempDetails.uvMax = Math.round(dailyUvIndex[day]);
       dayTempDetails.sunrise = dailySunriseArray[day];
       dayTempDetails.sunset = dailySunsetArray[day];
+      dayTempDetails.dayName = getDayFromDate(dailyNameArray[day]);
       dayTempDetails.weatherCode.overall = dailyWeatherCode[day];
       dayTempDetails.weatherCode.morning = getWeatherCodeOverHours(
         hourlyWeatherCodeArray.slice(index, index + 12)
@@ -175,6 +162,7 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
         hourlyWeatherCodeArray.slice(index + 12, index + 24)
       );
     }
+    dayTempDetails.key = uniqid();
 
     return dayTempDetails;
   }

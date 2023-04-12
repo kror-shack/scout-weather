@@ -1,0 +1,17 @@
+.Hourly-Details {
+  display: flex;
+  max-width: inherit;
+  overflow-x: scroll;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px;
+
+  div {
+    margin: 10px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+}

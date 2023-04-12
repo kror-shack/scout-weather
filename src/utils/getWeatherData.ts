@@ -1,15 +1,11 @@
 import { convertKelvinToCelcius } from "./formatHelperFunctions";
 import formatForecastDailyTempDetails from "./formatWeatherData";
-import { CityDetails } from "../types/types";
-
-interface TodayWeatherMainDetails {
-  name: string;
-  temp: number;
-  maxTemp: number;
-  minTemp: number;
-  feelsLike: number;
-  description: string;
-}
+import {
+  CityDetails,
+  TodayWeatherMainDetails,
+  DailyWeatherDetails,
+  ForecastDetails,
+} from "../types/types";
 
 type Coordinates = {
   lon: number;
@@ -23,7 +19,7 @@ type Props = {
 
 const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
   let todayWeatherMainDetails = {} as TodayWeatherMainDetails;
-  let forecastWeatherDetails = {};
+  let forecastWeatherDetails = {} as ForecastDetails;
   let coordinates = {} as Coordinates;
 
   async function getDataFromOpenWeather() {
@@ -66,6 +62,12 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
       data: data,
       tempUnit: "C",
     });
+    todayWeatherMainDetails.uvMax =
+      forecastWeatherDetails.todayTempDetails.uvMax;
+    todayWeatherMainDetails.maxTemp =
+      forecastWeatherDetails.todayTempDetails.max_temp;
+    todayWeatherMainDetails.minTemp =
+      forecastWeatherDetails.todayTempDetails.min_temp;
 
     console.log("the data from the meteo API -------------------");
     console.log(data);
