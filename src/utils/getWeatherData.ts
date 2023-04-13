@@ -33,7 +33,7 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
         { mode: "cors" }
       );
       let data = await response.json();
-      // console.log(data);
+      // //console.log(data);
       todayWeatherMainDetails.description = data.weather[0].description;
       todayWeatherMainDetails.name = data.name;
       todayWeatherMainDetails.feelsLike = convertKelvinToCelcius(
@@ -41,39 +41,43 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
       );
       todayWeatherMainDetails.temp = convertKelvinToCelcius(data.main.temp);
 
-      // console.log(todayWeatherMainDetails);
+      // //console.log(todayWeatherMainDetails);
 
       coordinates.lon = data.coord.lon;
 
       coordinates.lat = data.coord.lat;
-      console.log("these are the cooridnates--------------");
-      console.log(coordinates);
+      //console.log("these are the cooridnates--------------");
+      //console.log(coordinates);
     } catch (err) {
       console.log(err);
     }
   }
   async function getDataFromMetoeWeather() {
-    let response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${
-        "name" in cityDetails ? coordinates.lat : cityDetails.lat
-      }&longitude=${
-        "name" in cityDetails ? coordinates.lon : cityDetails.lon
-      }&hourly=temperature_2m,weathercode,precipitation_probability,precipitation,rain,showers,snowfall,uv_index&daily=weathercode,sunrise,sunset,uv_index_max&time&past_days=1&timezone=auto`
-    );
-    let data = await response.json();
-    forecastWeatherDetails = formatForecastDailyTempDetails({
-      data: data,
-      tempUnit: "C",
-    });
-    todayWeatherMainDetails.uvMax =
-      forecastWeatherDetails.todayTempDetails.uvMax;
-    todayWeatherMainDetails.maxTemp =
-      forecastWeatherDetails.todayTempDetails.max_temp;
-    todayWeatherMainDetails.minTemp =
-      forecastWeatherDetails.todayTempDetails.min_temp;
+    try {
+      let response = await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${
+          "name" in cityDetails ? coordinates.lat : cityDetails.lat
+        }&longitude=${
+          "name" in cityDetails ? coordinates.lon : cityDetails.lon
+        }&hourly=temperature_2m,weathercode,precipitation_probability,precipitation,rain,showers,snowfall,uv_index&daily=weathercode,sunrise,sunset,uv_index_max&time&past_days=1&timezone=auto`
+      );
+      let data = await response.json();
+      forecastWeatherDetails = formatForecastDailyTempDetails({
+        data: data,
+        tempUnit: "C",
+      });
+      todayWeatherMainDetails.uvMax =
+        forecastWeatherDetails.todayTempDetails.uvMax;
+      todayWeatherMainDetails.maxTemp =
+        forecastWeatherDetails.todayTempDetails.max_temp;
+      todayWeatherMainDetails.minTemp =
+        forecastWeatherDetails.todayTempDetails.min_temp;
 
-    console.log("the data from the meteo API -------------------");
-    console.log(data);
+      //console.log("the data from the meteo API -------------------");
+      //console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   async function fetchData() {
@@ -96,11 +100,11 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
 
   await fetchData();
 
-  console.log(
-    "-----------this is the end of the get weather funcdtion ----------"
-  );
-  console.log(todayWeatherMainDetails);
-  console.log(forecastWeatherDetails);
+  //console.log(
+  //"-----------this is the end of the get weather funcdtion ----------"
+  // );
+  //console.log(todayWeatherMainDetails);
+  //console.log(forecastWeatherDetails);
 
   return {
     todayWeatherMainDetails,

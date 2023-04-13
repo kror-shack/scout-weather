@@ -64,7 +64,7 @@ const getDayFromDate = (dateStr: string) => {
     "Friday",
     "Saturday",
   ];
-  console.log(week[dayOfWeek]);
+  //console.log(week[dayOfWeek]);
   return week[dayOfWeek];
 };
 

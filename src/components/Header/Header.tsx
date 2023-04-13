@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import getCitiesWithAutocomplete from "../../utils/getCitiesWithAutocomplete";
 import "./Header.scss";
-import debounce from "lodash.debounce";
+import _debounce, { _ } from "lodash.debounce";
 import AutoCompleteList from "../AutocompleteCiyList/AutoCompleteList";
 import { CityDetails } from "../../types/types";
 
@@ -20,12 +20,13 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
   const [searchTitle, setSearchTitle] = useState<string | undefined>();
   const [autoCompletedList, setAutoCompletedList] = useState<CityData[]>();
   const [showAutoCompleteList, setShowAutoCompleteList] = useState(false);
+  const inputElement = useRef<HTMLInputElement>(null);
 
   const debouncedSearch = useCallback(
-    debounce(async (inputValue: string | undefined) => {
-      console.log("debounce funciton has been called");
+    _debounce(async (inputValue: string | undefined) => {
+      console.log("this is the debounce function running");
       if (inputValue) {
-        setAutoCompletedList(undefined);
+        setAutoCompletedList([]);
         if (inputValue.length > 3) {
           let cityList = await getCitiesWithAutocomplete(inputValue);
           setAutoCompletedList(cityList);
@@ -44,30 +45,31 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
     setShowAutoCompleteList((prev) => !prev);
   }
   function handleInputChange(inputValue: string | undefined) {
-    console.log(inputValue);
-    if (typeof inputValue === "string") {
-    }
-
+    //console.log(inputValue);
+    if (inputValue === "") setAutoCompletedList([]);
     setSearchTitle(inputValue);
-    setShowAutoCompleteList((prev) => !prev);
-    console.log(`this is the search title value: ${searchTitle}`);
     debouncedSearch(inputValue);
+    //console.log(`this is the search title value: ${searchTitle}`);
   }
 
   function handleInputFoucusState() {
-    console.log("setting the in put focus ");
-    setShowAutoCompleteList((prev) => !prev);
+    //console.log("setting the in put focus ");
+    setShowAutoCompleteList(true);
   }
 
-  function handleInputBlurState(e: React.FocusEvent) {
-    setShowAutoCompleteList((prev) => !prev);
+  function handleInputBlurState() {
+    setShowAutoCompleteList(false);
   }
 
   //to empty the search bar after searching
   useEffect(() => {
+    console.log("this  is the use effect running");
     setSearchTitle("");
     setAutoCompletedList([]);
     setShowAutoCompleteList((prev) => !prev);
+    inputElement.current?.blur();
+
+    debouncedSearch.cancel();
   }, [cityDetails]);
 
   return (
@@ -100,8 +102,9 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
       <div className="search-bar">
         <form action="" onSubmit={(e) => handleSubmit(e)}>
           <input
+            ref={inputElement}
             onFocus={handleInputFoucusState}
-            onBlur={(e) => handleInputBlurState(e)}
+            onBlur={() => handleInputBlurState()}
             onChange={(event) => handleInputChange(event.target.value)}
             value={searchTitle}
             type="text"

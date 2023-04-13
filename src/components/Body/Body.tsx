@@ -31,15 +31,15 @@ const Body = ({ cityDetails, tempUnit }: Props) => {
 
   async function getCityWeatherData() {
     if (cityDetails) {
-      console.log("in the clickkkk functijon");
+      //console.log("in the clickkkk functijon");
       let { todayWeatherMainDetails, forecastWeatherDetails } =
         await getWeatherData({ cityDetails, tempUnit });
       setMainWeatherDetails(todayWeatherMainDetails);
       setHourlyWeatherDetails(forecastWeatherDetails.next24HourTempDetails);
       setWeeeklyWeatherDetails(forecastWeatherDetails);
-      console.log(todayWeatherMainDetails);
+      //console.log(todayWeatherMainDetails);
 
-      console.log(forecastWeatherDetails);
+      //console.log(forecastWeatherDetails);
     }
   }
 
@@ -51,10 +51,10 @@ const Body = ({ cityDetails, tempUnit }: Props) => {
         { mode: "cors" }
       );
       let data = await response.json();
-      console.log("this is the weather code description");
-      console.log(data);
+      //console.log("this is the weather code description");
+      //console.log(data);
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   }
 
