@@ -25,7 +25,7 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
     debounce(async (inputValue: string | undefined) => {
       console.log("debounce funciton has been called");
       if (inputValue) {
-        setAutoCompletedList([]);
+        setAutoCompletedList(undefined);
         if (inputValue.length > 3) {
           let cityList = await getCitiesWithAutocomplete(inputValue);
           setAutoCompletedList(cityList);
@@ -45,10 +45,17 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
   }
   function handleInputChange(inputValue: string | undefined) {
     console.log(inputValue);
+    if (typeof inputValue === "string") {
+    }
+
     setSearchTitle(inputValue);
     setShowAutoCompleteList(true);
     console.log(`this is the search title value: ${searchTitle}`);
     debouncedSearch(inputValue);
+  }
+
+  function handleInputFoucsState() {
+    setShowAutoCompleteList((prev) => !prev);
   }
 
   //to empty the search bar after searching
@@ -87,6 +94,8 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
       <div className="search-bar">
         <form action="" onSubmit={(e) => handleSubmit(e)}>
           <input
+            onFocus={handleInputFoucsState}
+            onBlur={handleInputFoucsState}
             onChange={(event) => handleInputChange(event.target.value)}
             value={searchTitle}
             type="text"
@@ -94,6 +103,7 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
         </form>
         {showAutoCompleteList ? (
           <AutoCompleteList
+            searchTitle={searchTitle}
             cityNameList={autoCompletedList}
             setCityDetails={setCityDetails}
           />

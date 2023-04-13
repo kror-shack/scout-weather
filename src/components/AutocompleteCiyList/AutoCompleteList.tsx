@@ -12,9 +12,14 @@ type CityData = {
 type Props = {
   cityNameList: CityData[] | undefined;
   setCityDetails: React.Dispatch<React.SetStateAction<CityDetails>>;
+  searchTitle: string | undefined;
 };
 
-const AutoCompleteList = ({ cityNameList, setCityDetails }: Props) => {
+const AutoCompleteList = ({
+  cityNameList,
+  setCityDetails,
+  searchTitle,
+}: Props) => {
   const [location, setLocation] = useState<{
     lat: number | null;
     lon: number | null;
@@ -52,18 +57,22 @@ const AutoCompleteList = ({ cityNameList, setCityDetails }: Props) => {
   return (
     <div className="Autocomplete-list">
       <button onClick={() => handleLocationOnClick()}>Use Your Location</button>
-      {cityNameList
-        ? cityNameList.map((listElement, i) => {
-            return (
-              <button
-                onClick={() => handleButtonClick(listElement.city)}
-                key={listElement.id}
-              >
-                {listElement.city}, {listElement.countryCode}
-              </button>
-            );
-          })
-        : ""}
+      {cityNameList ? (
+        cityNameList.map((listElement, i) => {
+          return (
+            <button
+              onClick={() => handleButtonClick(listElement.city)}
+              key={listElement.id}
+            >
+              {listElement.city}, {listElement.countryCode}
+            </button>
+          );
+        })
+      ) : searchTitle ? (
+        <button>searching</button>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
