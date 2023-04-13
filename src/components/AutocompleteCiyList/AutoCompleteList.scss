@@ -3,4 +3,10 @@
   position: absolute;
   width: inherit;
   flex-direction: column;
+
+  button :hover {
+    color: green;
+    border: 10px solid black;
+    background-color: green;
+  }
 }

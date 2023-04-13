@@ -40,7 +40,6 @@ const AutoCompleteList = ({
     getUserLocation(setLocation);
     if (location) {
       setCityDetails((prev) => ({
-        ...prev,
         lat: location.lat,
         lon: location.lon,
       }));
@@ -50,7 +49,6 @@ const AutoCompleteList = ({
   useEffect(() => {
     if (location) {
       setCityDetails((prev) => ({
-        ...prev,
         lat: location.lat,
         lon: location.lon,
       }));
@@ -59,11 +57,17 @@ const AutoCompleteList = ({
 
   return (
     <div className="Autocomplete-list">
-      <button onClick={() => handleLocationOnClick()}>Use Your Location</button>
+      <button
+        onMouseDown={(event) => event.preventDefault()}
+        onClick={() => handleLocationOnClick()}
+      >
+        Use Your Location
+      </button>
       {cityNameList ? (
         cityNameList.map((listElement, i) => {
           return (
             <button
+              onMouseDown={(event) => event.preventDefault()}
               onClick={() => handleButtonClick(listElement.city)}
               key={listElement.id}
             >

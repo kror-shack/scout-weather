@@ -41,7 +41,7 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
       ...prev,
       name: searchTitle,
     }));
-    setShowAutoCompleteList(false);
+    setShowAutoCompleteList((prev) => !prev);
   }
   function handleInputChange(inputValue: string | undefined) {
     console.log(inputValue);
@@ -49,31 +49,25 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
     }
 
     setSearchTitle(inputValue);
-    setShowAutoCompleteList(true);
+    setShowAutoCompleteList((prev) => !prev);
     console.log(`this is the search title value: ${searchTitle}`);
     debouncedSearch(inputValue);
   }
 
   function handleInputFoucusState() {
-    setShowAutoCompleteList(true);
+    console.log("setting the in put focus ");
+    setShowAutoCompleteList((prev) => !prev);
   }
 
   function handleInputBlurState(e: React.FocusEvent) {
-    //to delay the blur event so that
-    // the list does not unmount before
-    // the click function is run in AutoCompleteList
-    if (e?.relatedTarget?.closest("Autocomplete-list")) {
-      setTimeout(() => {
-        setShowAutoCompleteList(false);
-      }, 200);
-    }
-    setShowAutoCompleteList(false);
+    setShowAutoCompleteList((prev) => !prev);
   }
 
   //to empty the search bar after searching
   useEffect(() => {
     setSearchTitle("");
-    setShowAutoCompleteList(false);
+    setAutoCompletedList([]);
+    setShowAutoCompleteList((prev) => !prev);
   }, [cityDetails]);
 
   return (
