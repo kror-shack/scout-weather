@@ -44,7 +44,10 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
       // console.log(todayWeatherMainDetails);
 
       coordinates.lon = data.coord.lon;
+
       coordinates.lat = data.coord.lat;
+      console.log("these are the cooridnates--------------");
+      console.log(coordinates);
     } catch (err) {
       console.log(err);
     }
@@ -54,7 +57,7 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
       `https://api.open-meteo.com/v1/forecast?latitude=${
         "name" in cityDetails ? coordinates.lat : cityDetails.lat
       }&longitude=${
-        "name" in cityDetails ? coordinates.lat : cityDetails.lat
+        "name" in cityDetails ? coordinates.lon : cityDetails.lon
       }&hourly=temperature_2m,weathercode,precipitation_probability,precipitation,rain,showers,snowfall,uv_index&daily=weathercode,sunrise,sunset,uv_index_max&time&past_days=1&timezone=auto`
     );
     let data = await response.json();
