@@ -3,6 +3,7 @@ import {
   getProbabilityOverHours,
   getWeatherCodeOverHours,
   getDayFromDate,
+  convertHourFormat,
 } from "./formatHelperFunctions";
 
 import {
@@ -86,18 +87,6 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
     unformattedHourlyimeArray
   );
 
-  function convertHourFormat(hour: number): string {
-    if (hour === 0) {
-      return "12AM";
-    } else if (hour < 12) {
-      return `${hour}AM`;
-    } else if (hour === 12) {
-      return "12PM";
-    } else {
-      return `${hour - 12}PM`;
-    }
-  }
-
   //index: start point of the array
   // day: from yesterday = 0
   function getWeatherDetailsForDay(index: number, day?: number) {
@@ -108,13 +97,20 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
     } as DailyWeatherDetails;
     let highestTemp = hourlyTempArray[index];
     let lowestTemp = hourlyTempArray[index];
-    for (let i = index; i < index + 23; i++) {
+
+    for (let i = index; i < index + 24; i++) {
       highestTemp =
         hourlyTempArray[i] > highestTemp ? hourlyTempArray[i] : highestTemp;
       lowestTemp =
         hourlyTempArray[i] < lowestTemp ? hourlyTempArray[i] : lowestTemp;
 
       let hour = convertHourFormat(i - index);
+      if (index === thisHour) {
+        hour = convertHourFormat(i);
+        if (i > 23) {
+          hour = convertHourFormat(i - 24);
+        }
+      }
 
       dayTempDetails.hourly[hour] = {
         temp: Math.round(hourlyTempArray[i]),
@@ -149,6 +145,7 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
 
     if (day) {
       dayTempDetails.max_temp = Math.round(highestTemp);
+      console.log(highestTemp);
       dayTempDetails.min_temp = Math.round(lowestTemp);
       dayTempDetails.uvMax = Math.round(dailyUvIndex[day]);
       dayTempDetails.sunrise = dailySunriseArray[day];
@@ -168,14 +165,16 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
   }
 
   let yesterdayTempDetails = getWeatherDetailsForDay(0, 0);
+  console.log(`this be the hour: ${thisHour}`);
   let next24HourTempDetails = getWeatherDetailsForDay(thisHour);
-  let todayTempDetails = getWeatherDetailsForDay(23, 1);
-  let secondDayTempDetails = getWeatherDetailsForDay(47, 2);
-  let thirdDayTempDetails = getWeatherDetailsForDay(71, 3);
-  let fourthDayTempDetails = getWeatherDetailsForDay(95, 4);
-  let fifthDayTempDetails = getWeatherDetailsForDay(119, 5);
-  let sixthDayTempDetails = getWeatherDetailsForDay(143, 6);
-  let seventhDayTempDetails = getWeatherDetailsForDay(167, 7);
+
+  let todayTempDetails = getWeatherDetailsForDay(24, 1);
+  let secondDayTempDetails = getWeatherDetailsForDay(48, 2);
+  let thirdDayTempDetails = getWeatherDetailsForDay(72, 3);
+  let fourthDayTempDetails = getWeatherDetailsForDay(96, 4);
+  let fifthDayTempDetails = getWeatherDetailsForDay(120, 5);
+  let sixthDayTempDetails = getWeatherDetailsForDay(144, 6);
+  let seventhDayTempDetails = getWeatherDetailsForDay(168, 7);
 
   return {
     yesterdayTempDetails,

@@ -39,6 +39,18 @@ const getWeatherCodeOverHours = (valueArray: number[]): number => {
   return mostFrequentNum;
 };
 
+const convertHourFormat = (hour: number): string => {
+  if (hour === 0) {
+    return "12AM";
+  } else if (hour < 12) {
+    return `${hour}AM`;
+  } else if (hour === 12) {
+    return "12PM";
+  } else {
+    return `${hour - 12}PM`;
+  }
+};
+
 const getDayFromDate = (dateStr: string) => {
   const date = new Date(dateStr);
   const dayOfWeek = date.getDay(); // returns number from 1
@@ -62,4 +74,5 @@ export {
   getCurrentHour,
   getWeatherCodeOverHours,
   getDayFromDate,
+  convertHourFormat,
 };
