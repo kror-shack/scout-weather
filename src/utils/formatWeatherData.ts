@@ -2,6 +2,7 @@ import {
   getCurrentHour,
   getProbabilityOverHours,
   getWeatherCodeOverHours,
+  getDayFromDate,
 } from "./formatHelperFunctions";
 
 import {
@@ -10,7 +11,6 @@ import {
   HourlyWeatherDetails,
 } from "../types/types";
 import uniqid from "uniqid";
-import getDayFromDate from "./getDayFromDate";
 type Props = {
   data: Data;
   tempUnit: "C" | "F";

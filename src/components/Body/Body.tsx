@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import getWeatherData from "../../utils/getWeatherData";
 import {
   CityDetails,
@@ -29,7 +29,7 @@ const Body = ({ cityDetails, tempUnit }: Props) => {
   const [weeklyWeatherDetails, setWeeeklyWeatherDetails] =
     useState<ForecastDetails>();
 
-  async function handleButtonClick() {
+  async function getCityWeatherData() {
     if (cityDetails) {
       console.log("in the clickkkk functijon");
       let { todayWeatherMainDetails, forecastWeatherDetails } =
@@ -42,6 +42,25 @@ const Body = ({ cityDetails, tempUnit }: Props) => {
       console.log(forecastWeatherDetails);
     }
   }
+
+  async function handleSomething() {
+    try {
+      let response = await fetch(
+        `http://api.openweathermap.org/data/2.5/weather?appid=0bfd43c822d3aebccceaae1fd3fb1173&id=80
+`,
+        { mode: "cors" }
+      );
+      let data = await response.json();
+      console.log("this is the weather code description");
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getCityWeatherData();
+  }, [cityDetails]);
   return (
     <div className="Body">
       {/* <p>
@@ -70,7 +89,7 @@ const Body = ({ cityDetails, tempUnit }: Props) => {
       ) : (
         ""
       )}
-      <button onClick={() => handleButtonClick()}>Fetch Data</button>
+      <button onClick={handleSomething}>Handle something</button>
     </div>
   );
 };

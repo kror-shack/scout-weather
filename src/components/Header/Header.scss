@@ -8,6 +8,16 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  background-color: #00baba;
+
+  h1 {
+    font-family: Baskervville;
+    font-size: 36px;
+  }
+
+  button {
+    background-color: none;
+  }
 
   Form {
     width: inherit;
