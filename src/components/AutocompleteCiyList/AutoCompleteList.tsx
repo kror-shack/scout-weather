@@ -27,6 +27,8 @@ const AutoCompleteList = ({
   console.log(cityNameList);
 
   function handleButtonClick(cityName: string) {
+    console.log("in the handling of the auto complete button list");
+    console.log(cityName);
     setCityDetails((prev) => ({
       ...prev,
       name: cityName,
@@ -34,6 +36,7 @@ const AutoCompleteList = ({
   }
 
   function handleLocationOnClick() {
+    console.log("handling the locaiton on click");
     getUserLocation(setLocation);
     if (location) {
       setCityDetails((prev) => ({
@@ -64,6 +67,7 @@ const AutoCompleteList = ({
               onClick={() => handleButtonClick(listElement.city)}
               key={listElement.id}
             >
+              <p>this be a button</p>
               {listElement.city}, {listElement.countryCode}
             </button>
           );

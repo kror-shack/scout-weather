@@ -54,8 +54,20 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
     debouncedSearch(inputValue);
   }
 
-  function handleInputFoucsState() {
-    setShowAutoCompleteList((prev) => !prev);
+  function handleInputFoucusState() {
+    setShowAutoCompleteList(true);
+  }
+
+  function handleInputBlurState(e: React.FocusEvent) {
+    //to delay the blur event so that
+    // the list does not unmount before
+    // the click function is run in AutoCompleteList
+    if (e?.relatedTarget?.closest("Autocomplete-list")) {
+      setTimeout(() => {
+        setShowAutoCompleteList(false);
+      }, 200);
+    }
+    setShowAutoCompleteList(false);
   }
 
   //to empty the search bar after searching
@@ -94,8 +106,8 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
       <div className="search-bar">
         <form action="" onSubmit={(e) => handleSubmit(e)}>
           <input
-            onFocus={handleInputFoucsState}
-            onBlur={handleInputFoucsState}
+            onFocus={handleInputFoucusState}
+            onBlur={(e) => handleInputBlurState(e)}
             onChange={(event) => handleInputChange(event.target.value)}
             value={searchTitle}
             type="text"
