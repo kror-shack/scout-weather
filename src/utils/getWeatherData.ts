@@ -1,4 +1,9 @@
-import { convertKelvinToCelcius } from "./formatHelperFunctions";
+import {
+  convertHourFormat,
+  convertKelvinToCelcius,
+  getCurrentHour,
+  isDay,
+} from "./formatHelperFunctions";
 import formatForecastDailyTempDetails from "./formatWeatherData";
 import {
   CityDetails,
@@ -72,6 +77,12 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
         forecastWeatherDetails.todayTempDetails.max_temp;
       todayWeatherMainDetails.minTemp =
         forecastWeatherDetails.todayTempDetails.min_temp;
+      let unformattedThisHour = getCurrentHour();
+      let thisHour = convertHourFormat(unformattedThisHour);
+
+      todayWeatherMainDetails.weatherCode =
+        forecastWeatherDetails.todayTempDetails.hourly[thisHour].weatherCode;
+      console.log(todayWeatherMainDetails.weatherCode);
 
       //console.log("the data from the meteo API -------------------");
       //console.log(data);
@@ -104,7 +115,7 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
   //"-----------this is the end of the get weather funcdtion ----------"
   // );
   //console.log(todayWeatherMainDetails);
-  //console.log(forecastWeatherDetails);
+  console.log(forecastWeatherDetails);
 
   return {
     todayWeatherMainDetails,

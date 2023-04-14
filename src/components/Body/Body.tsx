@@ -63,33 +63,36 @@ const Body = ({ cityDetails, tempUnit }: Props) => {
   }, [cityDetails]);
   return (
     <div className="Body">
-      {/* <p>
-        {cityDetails ? ("name" in cityDetails ? cityDetails.name : "") : ""}
-      </p> */}
-      {mainWeatherDetials ? (
-        <MainDetails mainDetails={mainWeatherDetials} />
-      ) : (
-        ""
-      )}
-      {hourlyWeatherDetails ? (
-        <HourlyDetails hourlyDetails={hourlyWeatherDetails} />
-      ) : (
-        ""
-      )}
-      <Suggestions />
-      {weeklyWeatherDetails ? (
-        <WeeklyDetails weeklyDetails={weeklyWeatherDetails} />
-      ) : (
-        ""
-      )}
-      {weeklyWeatherDetails ? (
-        <AdditionalDetails
-          additionalDetails={weeklyWeatherDetails.todayTempDetails}
-        />
-      ) : (
-        ""
-      )}
-      <button onClick={handleSomething}>Handle something</button>
+      <div></div>
+      <div>
+        {/* <p>
+          {cityDetails ? ("name" in cityDetails ? cityDetails.name : "") : ""}
+        </p> */}
+        {mainWeatherDetials ? (
+          <MainDetails mainDetails={mainWeatherDetials} />
+        ) : (
+          ""
+        )}
+        {hourlyWeatherDetails ? (
+          <HourlyDetails hourlyDetails={hourlyWeatherDetails} />
+        ) : (
+          ""
+        )}
+        <Suggestions />
+        {weeklyWeatherDetails ? (
+          <WeeklyDetails weeklyDetails={weeklyWeatherDetails} />
+        ) : (
+          ""
+        )}
+        {weeklyWeatherDetails ? (
+          <AdditionalDetails
+            additionalDetails={weeklyWeatherDetails.todayTempDetails}
+          />
+        ) : (
+          ""
+        )}
+      </div>
+      <div></div>
     </div>
   );
 };

@@ -68,6 +68,26 @@ const getDayFromDate = (dateStr: string) => {
   return week[dayOfWeek];
 };
 
+const isDay = (): boolean => {
+  function checkDay(
+    currentTime: Date,
+    //start and end determined according to
+    // meteo weather api codes
+    dayStartHour: number = 10,
+    dayEndHour: number = 21
+  ) {
+    const currentHour = currentTime.getHours();
+    if (currentHour >= dayStartHour && currentHour < dayEndHour) {
+      return true; // it's day time
+    } else {
+      return false; // it's night time
+    }
+  }
+  const now = new Date();
+
+  return checkDay(now);
+};
+
 export {
   convertKelvinToCelcius,
   getProbabilityOverHours,
@@ -75,4 +95,5 @@ export {
   getWeatherCodeOverHours,
   getDayFromDate,
   convertHourFormat,
+  isDay,
 };

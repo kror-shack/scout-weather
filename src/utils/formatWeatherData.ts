@@ -152,6 +152,7 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
       dayTempDetails.sunset = dailySunsetArray[day];
       dayTempDetails.dayName = getDayFromDate(dailyNameArray[day]);
       dayTempDetails.weatherCode.overall = dailyWeatherCode[day];
+
       dayTempDetails.weatherCode.morning = getWeatherCodeOverHours(
         hourlyWeatherCodeArray.slice(index, index + 12)
       );

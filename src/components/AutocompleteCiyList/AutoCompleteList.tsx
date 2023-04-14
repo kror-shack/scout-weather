@@ -36,7 +36,7 @@ const AutoCompleteList = ({
   }
 
   function handleLocationOnClick() {
-    //console.log("handling the locaiton on click");
+    console.log("handling the locaiton on click");
     getUserLocation(setLocation);
     if (location) {
       setCityDetails((prev) => ({
@@ -48,7 +48,7 @@ const AutoCompleteList = ({
 
   useEffect(() => {
     if (location) {
-      setCityDetails((prev) => ({
+      setCityDetails(() => ({
         lat: location.lat,
         lon: location.lon,
       }));
