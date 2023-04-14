@@ -15,6 +15,7 @@ export interface TodayWeatherMainDetails {
   feelsLike: number;
   description: string;
   uvMax: number;
+  weatherCode: number;
 }
 
 export type DailyWeatherDetails = {

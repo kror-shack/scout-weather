@@ -4,6 +4,9 @@ import "./Header.scss";
 import _debounce, { _ } from "lodash.debounce";
 import AutoCompleteList from "../AutocompleteCiyList/AutoCompleteList";
 import { CityDetails } from "../../types/types";
+import "../../index.css";
+import getUserLocation from "../../utils/getUserLocation";
+import Settings from "../Settings/Settings";
 
 type Props = {
   setCityDetails: React.Dispatch<React.SetStateAction<CityDetails>>;
@@ -16,17 +19,26 @@ type CityData = {
   id: number;
 };
 
+type FormSubmit =
+  | React.FormEvent<HTMLFormElement>
+  | React.MouseEvent<HTMLButtonElement>;
+
 const Header = ({ cityDetails, setCityDetails }: Props) => {
   const [searchTitle, setSearchTitle] = useState<string | undefined>();
   const [autoCompletedList, setAutoCompletedList] = useState<CityData[]>();
   const [showAutoCompleteList, setShowAutoCompleteList] = useState(false);
   const inputElement = useRef<HTMLInputElement>(null);
+  const [location, setLocation] = useState<{
+    lat: number | null;
+    lon: number | null;
+  }>();
+  const formElement = useRef<HTMLFormElement>(null);
 
   const debouncedSearch = useCallback(
     _debounce(async (inputValue: string | undefined) => {
       console.log("this is the debounce function running");
       if (inputValue) {
-        setAutoCompletedList([]);
+        setAutoCompletedList(undefined);
         if (inputValue.length > 3) {
           let cityList = await getCitiesWithAutocomplete(inputValue);
           setAutoCompletedList(cityList);
@@ -36,7 +48,9 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
     []
   );
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormSubmit) {
+    console.log("handling submit");
+
     e.preventDefault();
     setCityDetails((prev) => ({
       ...prev,
@@ -44,16 +58,14 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
     }));
     setShowAutoCompleteList((prev) => !prev);
   }
+
   function handleInputChange(inputValue: string | undefined) {
-    //console.log(inputValue);
     if (inputValue === "") setAutoCompletedList([]);
     setSearchTitle(inputValue);
     debouncedSearch(inputValue);
-    //console.log(`this is the search title value: ${searchTitle}`);
   }
 
   function handleInputFoucusState() {
-    //console.log("setting the in put focus ");
     setShowAutoCompleteList(true);
   }
 
@@ -61,12 +73,34 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
     setShowAutoCompleteList(false);
   }
 
+  function handleLocationOnnClick(e: any) {
+    e.stopPropagation();
+    console.log("handling the locaiton on click");
+    // e.stopPropagation();
+    getUserLocation(setLocation);
+    if (location) {
+      setCityDetails((prev) => ({
+        lat: location.lat,
+        lon: location.lon,
+      }));
+    }
+  }
+
+  useEffect(() => {
+    if (location) {
+      setCityDetails(() => ({
+        lat: location.lat,
+        lon: location.lon,
+      }));
+    }
+  }, [location]);
+
   //to empty the search bar after searching
   useEffect(() => {
     console.log("this  is the use effect running");
     setSearchTitle("");
-    setAutoCompletedList([]);
-    setShowAutoCompleteList((prev) => !prev);
+    setAutoCompletedList(undefined);
+    setShowAutoCompleteList(false);
     inputElement.current?.blur();
 
     debouncedSearch.cancel();
@@ -74,51 +108,93 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
 
   return (
     <div className="Header">
+      <Settings />
       <div>
-        <svg
-          width="35"
-          height="27"
-          viewBox="0 0 35 27"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M33.1528 11.25H1.84722C0.82703 11.25 0 12.207 0 13.3875V13.6125C0 14.793 0.82703 15.75 1.84722 15.75H33.1528C34.173 15.75 35 14.793 35 13.6125V13.3875C35 12.207 34.173 11.25 33.1528 11.25Z"
-            fill="white"
-          />
-          <path
-            d="M33.1528 22.5002H1.84722C0.82703 22.5002 0 23.4572 0 24.6377V24.8627C0 26.0433 0.82703 27.0002 1.84722 27.0002H33.1528C34.173 27.0002 35 26.0433 35 24.8627V24.6377C35 23.4572 34.173 22.5002 33.1528 22.5002Z"
-            fill="white"
-          />
-          <path
-            d="M33.1528 0H1.84722C0.82703 0 0 0.956991 0 2.1375V2.3625C0 3.54301 0.82703 4.5 1.84722 4.5H33.1528C34.173 4.5 35 3.54301 35 2.3625V2.1375C35 0.956991 34.173 0 33.1528 0Z"
-            fill="white"
-          />
-        </svg>
-      </div>
-      <div className="Title">
-        <h1>Weather</h1>
-      </div>
-      <div className="search-bar">
-        <form action="" onSubmit={(e) => handleSubmit(e)}>
-          <input
-            ref={inputElement}
-            onFocus={handleInputFoucusState}
-            onBlur={() => handleInputBlurState()}
-            onChange={(event) => handleInputChange(event.target.value)}
-            value={searchTitle}
-            type="text"
-          />
-        </form>
-        {showAutoCompleteList ? (
-          <AutoCompleteList
-            searchTitle={searchTitle}
-            cityNameList={autoCompletedList}
-            setCityDetails={setCityDetails}
-          />
-        ) : (
-          ""
-        )}
+        <div className="title">
+          <h1>WEATHER</h1>
+          <svg
+            width="78"
+            height="62"
+            viewBox="0 0 78 62"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M0.5 38.475C0.5 37.6055 0.78983 36.8809 1.40572 36.265C2.05784 35.6492 2.78241 35.3593 3.57945 35.3593H10.9701C11.8034 35.3593 12.4917 35.6492 13.0714 36.265C13.6148 36.8809 13.9047 37.6055 13.9047 38.475C13.9047 39.3445 13.6148 40.0691 13.0714 40.6487C12.528 41.2646 11.8034 41.5544 10.9701 41.5544H3.61568C2.78242 41.5544 2.05784 41.2646 1.44195 40.6487C0.82606 40.0328 0.5 39.3083 0.5 38.475ZM10.8614 13.4409C10.8614 12.6076 11.1513 11.8831 11.6947 11.2309C12.4193 10.615 13.1801 10.3252 14.0133 10.3252C14.7742 10.3252 15.4987 10.615 16.1508 11.2309L21.3316 16.5203C21.9112 17.0638 22.2011 17.7883 22.2011 18.6578C22.2011 19.5273 21.9112 20.2519 21.3316 20.8316C20.7519 21.4112 20.0273 21.7011 19.1578 21.7011C18.2883 21.7011 17.5638 21.4112 17.0203 20.8316L11.7309 15.6508C11.1513 15.035 10.8614 14.3104 10.8614 13.4409ZM11.4411 47.1699C11.4411 46.3729 11.7309 45.6845 12.2744 45.1773C12.854 44.6701 13.6148 44.3803 14.593 44.3803H35.2797C36.2578 44.3803 37.0186 44.6339 37.5983 45.1773C38.178 45.6845 38.4678 46.3729 38.4678 47.1699C38.4678 48.1481 38.178 48.9089 37.6345 49.4886C37.0549 50.0682 36.2941 50.358 35.2797 50.358H14.593C13.6148 50.358 12.854 50.0682 12.2744 49.5248C11.6947 48.9814 11.4411 48.1481 11.4411 47.1699ZM15.0278 57.8574C15.0278 57.0604 15.3538 56.3358 16.0422 55.6837C16.6943 55.0316 17.4551 54.7055 18.2159 54.7055C19.1578 54.7055 19.9186 55.0316 20.4983 55.6475C21.078 56.2996 21.3678 57.0241 21.3678 57.8574C21.3678 58.8718 21.078 59.6326 20.5345 60.2123C19.9911 60.7919 19.1941 61.0455 18.2159 61.0455C17.3826 61.0455 16.6218 60.7557 16.0059 60.1761C15.3538 59.5964 15.0278 58.7994 15.0278 57.8574ZM20.136 39.5256V39.272C20.2447 34.7072 21.8388 30.7583 24.882 27.389C27.9252 24.0197 31.6568 21.9909 36.1129 21.2663H36.2941C36.9824 21.1214 37.9244 21.0489 39.0475 21.0489C40.1705 21.0489 41.1125 21.1214 41.8008 21.2663H41.9458C46.3657 21.9547 50.1335 24.0197 53.1767 27.389C56.2199 30.7583 57.814 34.7072 57.9227 39.272V39.5256C57.9227 40.1053 57.6328 40.3951 57.0894 40.3951H52.9955C52.5608 40.3951 52.271 40.2864 52.0898 40.0691C51.9087 39.8517 51.8362 39.6343 51.8362 39.4169C51.6913 36.0477 50.3871 33.1856 47.9235 30.8307C45.4599 28.4758 42.5254 27.3165 39.0837 27.3165C35.6419 27.3165 32.7074 28.4758 30.2439 30.8307C27.7803 33.1856 26.4761 36.0477 26.3311 39.4169C26.3311 39.6343 26.2225 39.8517 26.0413 40.0691C25.8602 40.2864 25.5341 40.3951 25.0994 40.3951H21.0055C20.4258 40.3951 20.136 40.1053 20.136 39.5256ZM23.7951 57.8574C23.7951 57.0241 24.085 56.2996 24.6646 55.6475C25.2443 55.0316 26.0051 54.7055 26.947 54.7055H40.8227C41.6197 54.7055 42.3443 55.0316 42.9964 55.6837C43.6485 56.3358 44.0108 57.0604 44.0108 57.8574C44.0108 58.7994 43.6847 59.5964 43.0326 60.1761C42.3805 60.7557 41.6559 61.0455 40.8227 61.0455H26.947C25.9689 61.0455 25.208 60.7557 24.6284 60.2123C24.0487 59.6326 23.7951 58.8718 23.7951 57.8574ZM35.8955 10.4701V3.11568C35.8955 2.24619 36.1854 1.52161 36.8013 0.90572C37.4172 0.28983 38.1417 0 39.0112 0C39.8807 0 40.5691 0.28983 41.185 0.90572C41.8008 1.52161 42.0907 2.24619 42.0907 3.11568V10.4701C42.0907 11.3034 41.8008 12.028 41.185 12.5714C40.5691 13.1148 39.8445 13.4409 39.0112 13.4409C38.178 13.4409 37.4172 13.1511 36.8375 12.6076C36.2578 12.0642 35.8955 11.3034 35.8955 10.4701ZM40.8227 47.1699C40.8227 46.4091 41.1487 45.757 41.8008 45.2136C42.453 44.6701 43.1775 44.3803 44.0108 44.3803C44.8441 44.3803 45.5686 44.6701 46.2208 45.2136C46.8729 45.757 47.1989 46.4091 47.1989 47.1699C47.1989 48.1119 46.8729 48.9089 46.2208 49.4886C45.5686 50.0682 44.8441 50.358 44.0108 50.358C43.1775 50.358 42.4167 50.0682 41.8008 49.4886C41.1487 48.8727 40.8227 48.1119 40.8227 47.1699ZM46.4019 57.8574C46.4019 57.0241 46.6917 56.2996 47.2714 55.6475C47.8511 55.0316 48.6481 54.7055 49.59 54.7055H56.3286C57.2705 54.7055 58.0314 55.0316 58.611 55.6475C59.1907 56.2996 59.4805 57.0241 59.4805 57.8574C59.4805 58.8718 59.1907 59.6326 58.6472 60.2123C58.1038 60.7919 57.3068 61.0455 56.3286 61.0455H49.59C48.6119 61.0455 47.8511 60.7557 47.2714 60.2123C46.6917 59.6326 46.4019 58.8718 46.4019 57.8574ZM49.59 47.1699C49.59 46.4091 49.9161 45.757 50.5682 45.2136C51.2203 44.6701 51.9449 44.3803 52.7419 44.3803H63.8642C64.6612 44.3803 65.3133 44.6339 65.8205 45.1773C66.3277 45.7208 66.6176 46.3729 66.6176 47.1699C66.6176 48.1481 66.364 48.9089 65.8568 49.4886C65.3496 50.0682 64.6975 50.358 63.8642 50.358H52.7419C51.9087 50.358 51.1841 50.0682 50.532 49.4886C49.9161 48.8727 49.59 48.1119 49.59 47.1699ZM55.8938 18.6578C55.8938 17.7521 56.1837 17.0275 56.7271 16.5203L61.8716 11.2309C62.5237 10.615 63.2483 10.3252 64.0091 10.3252C64.8424 10.3252 65.5669 10.615 66.1828 11.2309C66.7987 11.8468 67.0886 12.5714 67.0886 13.4409C67.0886 14.3104 66.7987 15.0712 66.2191 15.6508L60.9297 20.7953C60.2775 21.375 59.553 21.6648 58.7559 21.6648C57.9227 21.6648 57.2705 21.375 56.7271 20.7953C56.1837 20.2519 55.8938 19.5273 55.8938 18.6578ZM64.0816 38.475C64.0816 37.6417 64.3714 36.9172 64.9511 36.265C65.5669 35.6492 66.2553 35.3593 67.0161 35.3593H74.3343C75.1676 35.3593 75.8922 35.6854 76.508 36.3013C77.1239 36.9172 77.45 37.6417 77.45 38.475C77.45 39.3083 77.1239 40.0328 76.508 40.6487C75.8922 41.2646 75.1676 41.5544 74.3343 41.5544H67.0161C66.1828 41.5544 65.4583 41.2646 64.9148 40.6487C64.3714 40.0328 64.0816 39.3445 64.0816 38.475Z" />
+          </svg>
+        </div>
+        <div className="container">
+          <div className="search-bar">
+            <form
+              ref={formElement}
+              className="form"
+              action=""
+              onSubmit={(e) => handleSubmit(e)}
+            >
+              <input
+                className="form__field"
+                ref={inputElement}
+                onFocus={handleInputFoucusState}
+                onBlur={() => handleInputBlurState()}
+                onChange={(event) => handleInputChange(event.target.value)}
+                value={searchTitle}
+                type="text"
+                placeholder="Search"
+              />
+
+              <button
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                }}
+                onClick={
+                  showAutoCompleteList
+                    ? (e) => {
+                        handleSubmit(e);
+                      }
+                    : (e) => {
+                        handleLocationOnnClick(e);
+                      }
+                }
+                type={showAutoCompleteList ? "submit" : "button"}
+              >
+                {showAutoCompleteList ? (
+                  <svg
+                    viewBox="0 0 124 123"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M118.913 98.4229L98.1151 77.6249L82.1178 71.0157C87.4444 63.4409 90.2981 54.4041 90.2878 45.1439C90.2878 20.2514 70.0364 0 45.1439 0C20.2514 0 0 20.2514 0 45.1439C0 70.0364 20.2514 90.2878 45.1439 90.2878C54.4847 90.2984 63.5962 87.3954 71.2091 81.9831L77.8011 97.9374L98.5984 118.736C99.9322 120.07 101.516 121.128 103.258 121.85C105.001 122.572 106.869 122.944 108.755 122.944C110.642 122.944 112.51 122.572 114.252 121.851C115.995 121.129 117.579 120.071 118.912 118.737C120.246 117.403 121.304 115.82 122.026 114.077C122.748 112.334 123.12 110.466 123.12 108.58C123.12 106.694 122.749 104.826 122.027 103.083C121.305 101.34 120.247 99.7568 118.913 98.4229ZM8.20798 45.1439C8.20798 24.7778 24.7778 8.20798 45.1439 8.20798C65.5099 8.20798 82.0798 24.7778 82.0798 45.1439C82.0798 65.5099 65.5099 82.0798 45.1439 82.0798C24.7778 82.0798 8.20798 65.5099 8.20798 45.1439ZM113.109 112.933C111.953 114.085 110.388 114.733 108.756 114.733C107.124 114.733 105.558 114.085 104.403 112.933L84.762 93.2919L78.6332 78.4573L93.4684 84.5861L113.109 104.227C114.262 105.382 114.909 106.948 114.909 108.58C114.909 110.212 114.262 111.777 113.109 112.933Z" />
+                  </svg>
+                ) : (
+                  <svg
+                    viewBox="0 0 20 28"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M4.94433 1.31149C8.00317 -0.465819 11.763 -0.434754 14.7931 1.39286C17.7935 3.2577 19.617 6.58589 19.6 10.1661C19.5302 13.7228 17.5748 17.0661 15.1306 19.6507C13.7199 21.1491 12.1418 22.4741 10.4285 23.5986C10.2521 23.7006 10.0588 23.7689 9.8582 23.8001C9.66515 23.7919 9.47716 23.7349 9.31117 23.6342C6.69548 21.9445 4.40072 19.7878 2.5373 17.2677C0.978036 15.164 0.092171 12.6225 1.62644e-06 9.98825C-0.00202257 6.40118 1.88549 3.08879 4.94433 1.31149ZM6.71236 11.473C7.2269 12.7415 8.44141 13.5689 9.78882 13.5689C10.6715 13.5752 11.5201 13.2217 12.1453 12.587C12.7706 11.9523 13.1207 11.0892 13.1176 10.19C13.1223 8.81752 12.3142 7.5775 11.0708 7.04894C9.82727 6.52039 8.39362 6.80755 7.43919 7.77635C6.48476 8.74515 6.19783 10.2045 6.71236 11.473Z"
+                    />
+                    <path
+                      opacity="0.4"
+                      d="M16.7994 26.6C16.7994 27.3732 13.6654 28 9.79936 28C5.93334 28 2.79932 27.3732 2.79932 26.6C2.79932 25.8268 5.93334 25.2 9.79936 25.2C13.6654 25.2 16.7994 25.8268 16.7994 26.6Z"
+                      fill="#00BABA"
+                    />
+                  </svg>
+                )}
+              </button>
+            </form>
+            {showAutoCompleteList ? (
+              <AutoCompleteList
+                searchTitle={searchTitle}
+                cityNameList={autoCompletedList}
+                setCityDetails={setCityDetails}
+              />
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
