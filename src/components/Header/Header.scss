@@ -6,9 +6,10 @@
   height: 8vh;
   border: 2px solid black;
   display: grid;
-  grid-template-columns: 15% auto 15%;
+  grid-template-columns: 25% auto 25%;
   grid-auto-flow: column;
   background-color: #00baba;
+  z-index: 10;
 
   div:first-child {
     display: flex;
@@ -82,6 +83,7 @@
     max-width: 400px;
     position: relative;
     display: flex;
+    box-sizing: border-box;
   }
 
   Input {

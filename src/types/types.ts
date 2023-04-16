@@ -14,7 +14,7 @@ export interface TodayWeatherMainDetails {
   minTemp: number;
   feelsLike: number;
   description: string;
-  uvMax: number;
+  uvMax: string;
   weatherCode: number;
 }
 

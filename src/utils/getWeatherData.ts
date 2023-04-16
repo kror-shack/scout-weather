@@ -1,7 +1,9 @@
 import {
+  capitalizeWords,
   convertHourFormat,
   convertKelvinToCelcius,
   getCurrentHour,
+  getUVLevel,
   isDay,
 } from "./formatHelperFunctions";
 import formatForecastDailyTempDetails from "./formatWeatherData";
@@ -39,7 +41,9 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
       );
       let data = await response.json();
       // //console.log(data);
-      todayWeatherMainDetails.description = data.weather[0].description;
+      todayWeatherMainDetails.description = capitalizeWords(
+        data.weather[0].description
+      );
       todayWeatherMainDetails.name = data.name;
       todayWeatherMainDetails.feelsLike = convertKelvinToCelcius(
         data.main.feels_like
@@ -71,8 +75,9 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
         data: data,
         tempUnit: "C",
       });
-      todayWeatherMainDetails.uvMax =
-        forecastWeatherDetails.todayTempDetails.uvMax;
+      todayWeatherMainDetails.uvMax = getUVLevel(
+        forecastWeatherDetails.todayTempDetails.uvMax
+      );
       todayWeatherMainDetails.maxTemp =
         forecastWeatherDetails.todayTempDetails.max_temp;
       todayWeatherMainDetails.minTemp =
@@ -85,7 +90,7 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
       console.log(todayWeatherMainDetails.weatherCode);
 
       //console.log("the data from the meteo API -------------------");
-      //console.log(data);
+      console.log(data);
     } catch (err) {
       console.error(err);
     }

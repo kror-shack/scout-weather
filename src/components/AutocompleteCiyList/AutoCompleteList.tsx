@@ -95,7 +95,7 @@ const AutoCompleteList = ({
             );
           })
         ) : searchTitle ? (
-          <button>searching</button>
+          <span>searching</span>
         ) : (
           ""
         )}

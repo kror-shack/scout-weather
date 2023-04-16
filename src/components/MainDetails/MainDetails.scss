@@ -1,4 +1,88 @@
 .Main-Details {
-  border: 2px solid black;
-  padding: 25px;
+  font-family: "Raleway";
+  font-weight: 400;
+  max-height: 200px;
+
+  padding: 25px 0px 25px 50px;
+  background: rgba(113, 227, 227, 0.46);
+  border-radius: 25px;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-column-gap: 10px;
+
+  // grid-template-columns: 1fr 3fr;
+  // grid-auto-flow: column;
+  // grid-template-rows: 1fr;
+
+  .left {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .city-name {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 20px;
+    }
+
+    div:first-child {
+      display: flex;
+
+      h2 {
+        font-family: "Engagement";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 60px;
+      }
+
+      span {
+        position: relative;
+        color: #151515b3;
+        font-size: 20px;
+        top: 35px;
+        right: 10px;
+      }
+    }
+
+    .min-max {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 18px;
+
+      p:last-child {
+        margin-top: 8px;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .right {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    position: relative;
+    svg {
+      position: relative;
+      top: 0;
+      max-width: 250px;
+      max-height: 250px;
+      position: absolute;
+
+      left: 35%;
+      top: -60px;
+    }
+
+    p {
+      position: absolute;
+      font-style: italic;
+      top: 86%;
+      left: 45%;
+    }
+  }
 }

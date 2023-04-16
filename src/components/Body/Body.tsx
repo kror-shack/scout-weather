@@ -63,22 +63,17 @@ const Body = ({ cityDetails, tempUnit }: Props) => {
   }, [cityDetails]);
   return (
     <div className="Body">
-      <div></div>
-      <div>
-        {/* <p>
-          {cityDetails ? ("name" in cityDetails ? cityDetails.name : "") : ""}
-        </p> */}
-        {mainWeatherDetials ? (
-          <MainDetails mainDetails={mainWeatherDetials} />
-        ) : (
-          ""
-        )}
-        {hourlyWeatherDetails ? (
-          <HourlyDetails hourlyDetails={hourlyWeatherDetails} />
-        ) : (
-          ""
-        )}
-        <Suggestions />
+      {mainWeatherDetials ? (
+        <MainDetails mainDetails={mainWeatherDetials} />
+      ) : (
+        ""
+      )}
+      {hourlyWeatherDetails ? (
+        <HourlyDetails hourlyDetails={hourlyWeatherDetails} />
+      ) : (
+        ""
+      )}
+      {/* {false ? <Suggestions /> : ""}
         {weeklyWeatherDetails ? (
           <WeeklyDetails weeklyDetails={weeklyWeatherDetails} />
         ) : (
@@ -90,9 +85,7 @@ const Body = ({ cityDetails, tempUnit }: Props) => {
           />
         ) : (
           ""
-        )}
-      </div>
-      <div></div>
+        )} */}
     </div>
   );
 };

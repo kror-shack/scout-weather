@@ -1,6 +1,20 @@
 @font-face {
   font-family: "Baskervville";
   src: local("Baskervville"),
-    url("./fonts/Baskervville-Regular.ttf") format("truetype");
+    url("./fonts/Baskervville/Baskervville-Regular.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Engagement";
+  src: local("Engagement"),
+    url("./fonts/Engagement/Engagement-Regular.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: local("Raleway"),
+    url("./fonts/static/Raleway-Medium.ttf") format("truetype");
   font-weight: bold;
 }

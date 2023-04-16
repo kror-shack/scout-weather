@@ -88,6 +88,48 @@ const isDay = (): boolean => {
   return checkDay(now);
 };
 
+function convertTimeTo24HourFormat(timeString: string): number | undefined {
+  const match = timeString.match(/^(\d+)(:([0-9]{2}))?\s*(AM|PM)$/i);
+  if (!match) {
+    return undefined;
+  }
+  const hours = Number(match[1]);
+  const minutes = match[3] ? Number(match[3]) : 0;
+  const ampm = match[4].toUpperCase();
+  if (hours === 12) {
+    return ampm === "AM" ? 0 : 12;
+  } else {
+    return ampm === "AM" ? hours : hours + 12;
+  }
+}
+
+function checkIfHourIsDay(hour: string) {
+  let currentHour = convertTimeTo24HourFormat(hour);
+  if (currentHour)
+    if (currentHour >= 10 && currentHour < 21) {
+      return true; // it's day time
+    } else {
+      return false; // it's night time
+    }
+}
+
+const getUVLevel = (uv: number): string => {
+  if (uv >= 11) {
+    return "High";
+  } else if (uv >= 7) {
+    return "Moderate";
+  } else {
+    return "Low";
+  }
+};
+
+const capitalizeWords = (input: string): string => {
+  return input
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 export {
   convertKelvinToCelcius,
   getProbabilityOverHours,
@@ -96,4 +138,7 @@ export {
   getDayFromDate,
   convertHourFormat,
   isDay,
+  getUVLevel,
+  capitalizeWords,
+  checkIfHourIsDay,
 };
