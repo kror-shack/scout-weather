@@ -159,6 +159,10 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
       dayTempDetails.weatherCode.night = getWeatherCodeOverHours(
         hourlyWeatherCodeArray.slice(index + 12, index + 24)
       );
+    } else {
+      dayTempDetails.max_temp = Math.round(highestTemp);
+      //console.log(highestTemp);
+      dayTempDetails.min_temp = Math.round(lowestTemp);
     }
     dayTempDetails.key = uniqid();
 

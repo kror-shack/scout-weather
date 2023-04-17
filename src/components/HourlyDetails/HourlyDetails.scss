@@ -56,6 +56,6 @@
 }
 
 /* Handle on hover */
-> .Hourly-Details::-webkit-scrollbar-thumb:hover {
-  background: #555;
+.Hourly-Details::-webkit-scrollbar-thumb:hover {
+  background: rgba(113, 227, 227);
 }

@@ -6,10 +6,10 @@
   grid-template-rows: repeat(5, 1fr); /* creates 5 rows with equal height */
   row-gap: 30px;
   grid-template-columns: 25% 50% 25%;
+}
 
-  div {
-    grid-column: 2;
-  }
+.Body > div {
+  grid-column: 2;
 }
 
 :root {

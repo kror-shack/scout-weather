@@ -73,13 +73,24 @@ const Body = ({ cityDetails, tempUnit }: Props) => {
       ) : (
         ""
       )}
-      {/* {false ? <Suggestions /> : ""}
-        {weeklyWeatherDetails ? (
-          <WeeklyDetails weeklyDetails={weeklyWeatherDetails} />
-        ) : (
-          ""
-        )}
-        {weeklyWeatherDetails ? (
+      {mainWeatherDetials && weeklyWeatherDetails ? (
+        <Suggestions
+          weatherCode={mainWeatherDetials.weatherCode}
+          uvIndex={mainWeatherDetials.uvMax}
+          yesterdayMax={weeklyWeatherDetails.yesterdayTempDetails.max_temp}
+          yesterdayMin={weeklyWeatherDetails.yesterdayTempDetails.min_temp}
+          todayMax={mainWeatherDetials.maxTemp}
+          todayMin={mainWeatherDetials.minTemp}
+        />
+      ) : (
+        ""
+      )}
+      {weeklyWeatherDetails ? (
+        <WeeklyDetails weeklyDetails={weeklyWeatherDetails} />
+      ) : (
+        ""
+      )}
+      {/* {weeklyWeatherDetails ? (
           <AdditionalDetails
             additionalDetails={weeklyWeatherDetails.todayTempDetails}
           />

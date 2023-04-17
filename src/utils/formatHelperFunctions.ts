@@ -130,6 +130,32 @@ const capitalizeWords = (input: string): string => {
     .join(" ");
 };
 
+const compareTemps = (
+  yesterdayMax: number,
+  todayMax: number,
+  yesterdayMin: number,
+  todayMin: number
+): string => {
+  if (
+    Math.abs(yesterdayMax - todayMax) <= 2 &&
+    Math.abs(yesterdayMin - todayMin) <= 2
+  ) {
+    return "Today's Temp is almost the same as yesterday";
+  } else if (todayMax - yesterdayMax >= 3 && todayMax - yesterdayMax <= 5) {
+    return "Today's Temp a bit warmer than yeseterday";
+  } else if (todayMax - yesterdayMax >= 5) {
+    console.log(`this is todays max temp: ${todayMax}`);
+    console.log(yesterdayMax);
+    return "Today's Temp quite warmer than yesterday";
+  } else if (yesterdayMin - todayMin >= 3 && yesterdayMin - todayMin <= 5) {
+    return "Today's Temp a bit cooler than yesterday";
+  } else if (yesterdayMin - todayMin > 5) {
+    return "Today's Temp quite cooler than yesterday";
+  } else {
+    return "Expect vastly different weather from yesterday";
+  }
+};
+
 export {
   convertKelvinToCelcius,
   getProbabilityOverHours,
@@ -141,4 +167,5 @@ export {
   getUVLevel,
   capitalizeWords,
   checkIfHourIsDay,
+  compareTemps,
 };

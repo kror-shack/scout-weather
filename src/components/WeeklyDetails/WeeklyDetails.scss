@@ -2,9 +2,92 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   border: none;
+  background-color: #b4f1f1;
+  padding: 10px 35px;
+  border-radius: 25px;
   gap: 20px;
+
+  .day {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2.5fr 0.2fr 0.5fr 1.5fr 1fr;
+    grid-auto-flow: column;
+
+    font-family: "Raleway";
+    font-weight: 800;
+
+    .icons {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 20px;
+      margin-right: 10px;
+    }
+
+    .percepitation-container {
+      svg {
+        path {
+          fill: #0909e880;
+        }
+      }
+    }
+
+    .min-max {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  .hourly {
+    display: flex;
+  }
+}
+
+.daily-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.hourly {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 290px;
+  overflow-y: scroll;
+  border: 1px dotted green;
+
   div {
-    border: none;
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+.hourly::-webkit-scrollbar {
+  margin-top: 10px;
+  height: 10px;
+}
+
+/* Track */
+.hourly::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 1px #00ff00;
+  background: #f1f1f1;
+}
+
+/* Handle */
+.hourly::-webkit-scrollbar-thumb {
+  background: rgb(0 122 122 / 46%);
+}
+
+/* Handle on hover */
+.hourly::-webkit-scrollbar-thumb:hover {
+  background: rgba(113, 227, 227);
+}
+
+.drop {
+  path {
+    fill: #0909e880;
   }
 }

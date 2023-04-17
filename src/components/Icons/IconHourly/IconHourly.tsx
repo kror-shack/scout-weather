@@ -1,3 +1,5 @@
+/* eslint-disable no-duplicate-case */
+// throwing random wrong? error (no-duplicate)
 import { useEffect, useState } from "react";
 import { checkIfHourIsDay, isDay } from "../../../utils/formatHelperFunctions";
 
@@ -10,7 +12,8 @@ const IconHourly = ({ weatherCode, hour }: Props) => {
   const [icon, setIcon] = useState<JSX.Element | null>(null);
 
   useEffect(() => {
-    const isDayTime = checkIfHourIsDay(hour);
+    let isDayTime;
+    isDayTime = checkIfHourIsDay(hour);
 
     switch (weatherCode) {
       case 0:
