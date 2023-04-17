@@ -12,7 +12,7 @@ const getProbabilityOverHours = (valueArray: number[]): number => {
     1
   );
 
-  const porbability = 1 - probabilityOfNotHappening;
+  const porbability = (1 - probabilityOfNotHappening) / valueArray.length;
 
   if (porbability < 0) return 0;
   return Math.round(porbability * 100);
