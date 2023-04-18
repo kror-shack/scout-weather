@@ -40,7 +40,7 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
         { mode: "cors" }
       );
       let data = await response.json();
-      // //console.log(data);
+      console.log(data);
       todayWeatherMainDetails.description = capitalizeWords(
         data.weather[0].description
       );
@@ -49,8 +49,9 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
         data.main.feels_like
       );
       todayWeatherMainDetails.temp = convertKelvinToCelcius(data.main.temp);
+      todayWeatherMainDetails.wind = data.wind.speed;
 
-      // //console.log(todayWeatherMainDetails);
+      // console.log(todayWeatherMainDetails);
 
       coordinates.lon = data.coord.lon;
 
