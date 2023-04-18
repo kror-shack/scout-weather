@@ -43,21 +43,6 @@ const Body = ({ cityDetails, tempUnit }: Props) => {
     }
   }
 
-  async function handleSomething() {
-    try {
-      let response = await fetch(
-        `http://api.openweathermap.org/data/2.5/weather?appid=0bfd43c822d3aebccceaae1fd3fb1173&id=80
-`,
-        { mode: "cors" }
-      );
-      let data = await response.json();
-      //console.log("this is the weather code description");
-      //console.log(data);
-    } catch (err) {
-      //console.log(err);
-    }
-  }
-
   useEffect(() => {
     getCityWeatherData();
   }, [cityDetails]);
@@ -90,13 +75,14 @@ const Body = ({ cityDetails, tempUnit }: Props) => {
       ) : (
         ""
       )}
-      {/* {weeklyWeatherDetails ? (
-          <AdditionalDetails
-            additionalDetails={weeklyWeatherDetails.todayTempDetails}
-          />
-        ) : (
-          ""
-        )} */}
+      {weeklyWeatherDetails && mainWeatherDetials ? (
+        <AdditionalDetails
+          additionalDetails={weeklyWeatherDetails.todayTempDetails}
+          wind={mainWeatherDetials.wind}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };
