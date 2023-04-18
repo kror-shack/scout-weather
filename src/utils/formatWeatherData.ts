@@ -4,6 +4,7 @@ import {
   getWeatherCodeOverHours,
   getDayFromDate,
   convertHourFormat,
+  getUVLevel,
 } from "./formatHelperFunctions";
 
 import {
@@ -147,7 +148,7 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
       dayTempDetails.max_temp = Math.round(highestTemp);
       //console.log(highestTemp);
       dayTempDetails.min_temp = Math.round(lowestTemp);
-      dayTempDetails.uvMax = Math.round(dailyUvIndex[day]);
+      dayTempDetails.uvMax = getUVLevel(Math.round(dailyUvIndex[day]));
       dayTempDetails.sunrise = dailySunriseArray[day];
       dayTempDetails.sunset = dailySunsetArray[day];
       dayTempDetails.dayName = getDayFromDate(dailyNameArray[day]);

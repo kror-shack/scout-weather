@@ -41,7 +41,7 @@ const IconMain = ({ weatherCode }: Props) => {
     switch (weatherCode) {
       case 0:
       case 1:
-        // Clear sky
+        //Clear sky
 
         if (isDayTime) {
           setSelectedIcon(<DayClearSkySvg />);

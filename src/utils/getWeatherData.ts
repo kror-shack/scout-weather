@@ -76,9 +76,8 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
         data: data,
         tempUnit: "C",
       });
-      todayWeatherMainDetails.uvMax = getUVLevel(
-        forecastWeatherDetails.todayTempDetails.uvMax
-      );
+      todayWeatherMainDetails.uvMax =
+        forecastWeatherDetails.todayTempDetails.uvMax;
       todayWeatherMainDetails.maxTemp =
         forecastWeatherDetails.todayTempDetails.max_temp;
       todayWeatherMainDetails.minTemp =

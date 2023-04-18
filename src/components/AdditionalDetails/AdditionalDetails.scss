@@ -1,6 +1,38 @@
 .Additional-Details {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+  font-family: "Raleway";
+
+  & > div {
+    height: 200px;
+    width: 45%;
+    background: #b4f1f1;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: center;
+    border-radius: 25px;
+    text-align: center;
+
+    h4 {
+      font-size: 24px;
+    }
+  }
+
+  .wind-container {
+    svg {
+      height: 100px;
+    }
+  }
+
+  .sun-times > div {
+    display: flex;
+    justify-content: space-evenly;
+
+    svg {
+      height: 125px;
+    }
+  }
 }

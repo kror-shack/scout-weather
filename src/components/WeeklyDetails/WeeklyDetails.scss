@@ -106,3 +106,54 @@
     fill: #0909e880;
   }
 }
+
+.hide {
+  display: none;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Raleway";
+
+  & > div {
+    width: 45%;
+    background: #b4f1f1;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: center;
+    border-radius: 25px;
+    text-align: center;
+    border: 1px dotted black;
+
+    h4 {
+      font-size: 20px;
+    }
+  }
+
+  .uv-container {
+    align-items: center;
+    svg {
+      height: 80px;
+      width: 60px;
+      path {
+        fill: rgb(182, 124, 36);
+      }
+    }
+  }
+
+  .sun-times > div {
+    display: flex;
+    justify-content: space-evenly;
+
+    svg {
+      height: 80px;
+      path {
+        fill: rgb(182, 124, 36);
+      }
+    }
+  }
+}

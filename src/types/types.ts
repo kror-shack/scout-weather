@@ -22,7 +22,7 @@ export interface TodayWeatherMainDetails {
 export type DailyWeatherDetails = {
   max_temp: number;
   min_temp: number;
-  uvMax: number;
+  uvMax: string;
   sunrise: string;
   dayName: string;
   weatherCode: { morning: number; night: number; overall: number };
