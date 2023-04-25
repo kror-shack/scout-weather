@@ -4,6 +4,7 @@ const convertKelvinToCelcius = (kelvin: number): number => {
   return roundedCelsius;
 };
 
+//change function to weighted probability
 const getProbabilityOverHours = (valueArray: number[]): number => {
   const probabilityOfNotHappening = valueArray.reduce(
     (accumulator, currentValue) => {

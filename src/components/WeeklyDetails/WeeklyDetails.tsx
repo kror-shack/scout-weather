@@ -4,7 +4,6 @@ import IconHourly from "../Icons/IconHourly/IconHourly";
 import { ReactComponent as PercetpationSvg } from "../../icons/static/percepitation.svg";
 import { ReactComponent as WindSvg } from "../../icons/animated/wind.svg";
 import { ReactComponent as SunriseSvg } from "../../icons/static/sunrise.svg";
-
 import { ReactComponent as SunsetSvg } from "../../icons/static/sunset.svg";
 import { ReactComponent as SunSvg } from "../../icons/static/day-clear-sky.svg";
 

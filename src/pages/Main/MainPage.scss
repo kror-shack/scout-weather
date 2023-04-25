@@ -22,3 +22,37 @@
   //     grid-auto-flow: column;
   //   }
 }
+
+/////////Media Query
+
+// .Main-Page {
+//   display: grid;
+//   min-width: 100vw;
+//   grid-template-columns: 30vw 40vw 30vw;
+//   // flex-direction: column;
+
+//   //   div:first-child {
+//   //     background-color: black;
+//   //     display: grid;
+//   //     align-items: start;
+//   //     grid-template-columns: 15% auto 15%;
+//   //     grid-auto-flow: column;
+//   //   }
+
+//   //   div:last-child {
+//   //     display: grid;
+
+//   //     grid-template-columns: 15% auto 15%;
+//   //     grid-auto-flow: column;
+//   //   }
+// }
+
+// @media screen and (max-width: 1224px) {
+//   .Main-Page {
+//     grid-template-columns: 15vw 75vw 10vw;
+
+//     // h1 {
+//     //   font-size: 24px;
+//     // }
+//   }
+// }

@@ -4,8 +4,8 @@
   width: 100vw;
 
   grid-template-rows: repeat(5, 1fr); /* creates 5 rows with equal height */
-  row-gap: 30px;
-  grid-template-columns: 30% 40% 30%;
+  row-gap: 1.8rem;
+  grid-template-columns: 25% 50% 25%;
 }
 
 .Body > div {
@@ -14,4 +14,49 @@
 
 :root {
   background: rgb(151 249 249 / 19%);
+}
+
+@media screen and (max-width: 1400px) {
+  .Body {
+    grid-template-columns: 15% 70% 15%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .Body {
+    grid-template-columns: 5% 90% 5%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  html {
+    font-size: 12px;
+  }
+  .Body {
+    grid-template-columns: 2% 96% 2%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .Body {
+    grid-template-columns: 3% 94% 3%;
+  }
+}
+
+@media screen and (max-width: 750px) {
+}
+
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .Body {
+    grid-template-rows: 120px 140px 77px min-content min-content;
+  }
+  html {
+    font-size: 8px;
+  }
 }

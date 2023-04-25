@@ -34,6 +34,8 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
     lon: number | null;
   }>();
   const formElement = useRef<HTMLFormElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const autoCompletelistRef = useRef<HTMLDivElement>(null);
 
   const debouncedSearch = useCallback(
     _debounce(async (inputValue: string | undefined) => {
@@ -107,6 +109,38 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
     debouncedSearch.cancel();
   }, [cityDetails]);
 
+  //add a debounce function
+  useEffect(() => {
+    function handleResize() {
+      console.log("handling resize");
+      const inputWidth = inputRef?.current?.offsetWidth;
+      if (autoCompletelistRef.current)
+        autoCompletelistRef.current.style.width = inputWidth + "px";
+    }
+
+    console.log("running the use effect");
+    console.log(inputRef.current);
+    console.log(autoCompletelistRef);
+    // Get the initial width of the search input
+    if (inputRef.current && autoCompletelistRef.current) {
+      console.log("the typecheck passes for refs");
+      const inputWidth = inputRef?.current?.offsetWidth;
+
+      // Set the initial width of the autocomplete list to match the width of the search input
+      autoCompletelistRef.current.style.width = inputWidth + "px";
+
+      // Add a resize event listener to the window object to update the width of the autocomplete list
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        // window.removeEventListener("resize", handleResize);
+      };
+    }
+
+    // Remove the resize event listener when the component unmounts
+  }, []);
+
   return (
     <div className="Header">
       <Settings />
@@ -124,8 +158,8 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
               onSubmit={(e) => handleSubmit(e)}
             >
               <input
+                ref={inputRef}
                 className="form__field"
-                ref={inputElement}
                 onFocus={handleInputFoucusState}
                 onBlur={() => handleInputBlurState()}
                 onChange={(event) => handleInputChange(event.target.value)}
@@ -177,15 +211,17 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
                 )}
               </button>
             </form>
-            {showAutoCompleteList ? (
-              <AutoCompleteList
-                searchTitle={searchTitle}
-                cityNameList={autoCompletedList}
-                setCityDetails={setCityDetails}
-              />
-            ) : (
-              ""
-            )}
+            <div ref={autoCompletelistRef}>
+              {showAutoCompleteList ? (
+                <AutoCompleteList
+                  searchTitle={searchTitle}
+                  cityNameList={autoCompletedList}
+                  setCityDetails={setCityDetails}
+                />
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
       </div>

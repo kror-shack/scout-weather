@@ -2,7 +2,6 @@ import { DailyWeatherDetails } from "../../types/types";
 import "./AdditionalDetails.scss";
 import { ReactComponent as WindSvg } from "../../icons/animated/wind.svg";
 import { ReactComponent as SunriseSvg } from "../../icons/animated/sunrise.svg";
-
 import { ReactComponent as SunsetSvg } from "../../icons/animated/sunset.svg";
 
 type Props = {
