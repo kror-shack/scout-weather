@@ -18,9 +18,10 @@ type TempUnits = "C" | "F";
 type Props = {
   cityDetails: CityDetails | undefined;
   tempUnit: TempUnits;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Body = ({ cityDetails, tempUnit }: Props) => {
+const Body = ({ cityDetails, tempUnit, setError }: Props) => {
   const [cityData, setCityData] = useState<[] | undefined>();
   const [hourlyWeatherDetails, setHourlyWeatherDetails] =
     useState<DailyWeatherDetails>();
@@ -33,7 +34,7 @@ const Body = ({ cityDetails, tempUnit }: Props) => {
     if (cityDetails) {
       //console.log("in the clickkkk functijon");
       let { todayWeatherMainDetails, forecastWeatherDetails } =
-        await getWeatherData({ cityDetails, tempUnit });
+        await getWeatherData({ cityDetails, tempUnit, setError });
       setMainWeatherDetails(todayWeatherMainDetails);
       setHourlyWeatherDetails(forecastWeatherDetails.next24HourTempDetails);
       setWeeeklyWeatherDetails(forecastWeatherDetails);

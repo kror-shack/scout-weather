@@ -13,6 +13,7 @@ import {
   DailyWeatherDetails,
   ForecastDetails,
 } from "../types/types";
+import { useNavigate } from "react-router-dom";
 
 type Coordinates = {
   lon: number;
@@ -22,9 +23,10 @@ type Coordinates = {
 type Props = {
   cityDetails: CityDetails;
   tempUnit: "C" | "F";
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
+const getWeatherData = async ({ cityDetails, tempUnit, setError }: Props) => {
   let todayWeatherMainDetails = {} as TodayWeatherMainDetails;
   let forecastWeatherDetails = {} as ForecastDetails;
   let coordinates = {} as Coordinates;
@@ -60,6 +62,7 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
       //console.log(coordinates);
     } catch (err) {
       console.log(err);
+      setError(true);
     }
   }
   async function getDataFromMetoeWeather() {
@@ -97,6 +100,7 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
       console.log(data);
     } catch (err) {
       console.error(err);
+      setError(true);
     }
   }
 
