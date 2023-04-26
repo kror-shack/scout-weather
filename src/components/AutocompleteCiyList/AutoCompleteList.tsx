@@ -82,17 +82,21 @@ const AutoCompleteList = ({
         </svg>
       </button>
       {cityNameList ? (
-        cityNameList.map((listElement, i) => {
-          return (
-            <button
-              onMouseDown={(event) => event.preventDefault()}
-              onClick={() => handleButtonClick(listElement.city)}
-              key={listElement.id}
-            >
-              {listElement.city}, {listElement.countryCode}
-            </button>
-          );
-        })
+        cityNameList.length !== 0 ? (
+          cityNameList.map((listElement, i) => {
+            return (
+              <button
+                onMouseDown={(event) => event.preventDefault()}
+                onClick={() => handleButtonClick(listElement.city)}
+                key={listElement.id}
+              >
+                {listElement.city}, {listElement.countryCode}
+              </button>
+            );
+          })
+        ) : (
+          <span>no city found</span>
+        )
       ) : searchTitle ? (
         <span>searching</span>
       ) : (
