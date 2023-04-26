@@ -101,14 +101,24 @@ function convertTimeTo24HourFormat(timeString: string): number | undefined {
   }
 }
 
-function checkIfHourIsDay(hour: string) {
+function checkIfHourIsDay(
+  hour: string,
+  sunrise: string,
+  sunset: string
+): boolean | undefined {
   let currentHour = convertTimeTo24HourFormat(hour);
-  if (currentHour)
-    if (currentHour >= 10 && currentHour < 21) {
+  const dayStartHour = convertTimeTo24HourFormat(sunrise);
+  const dayEndHour = convertTimeTo24HourFormat(sunset);
+
+  //check against 0 because 12AM is 0 in 24Hr
+  if ((currentHour === 0 || currentHour) && dayStartHour && dayEndHour) {
+    if (currentHour >= dayStartHour && currentHour < dayEndHour) {
       return true; // it's day time
     } else {
       return false; // it's night time
     }
+  }
+  return undefined;
 }
 
 const getUVLevel = (uv: number): string => {

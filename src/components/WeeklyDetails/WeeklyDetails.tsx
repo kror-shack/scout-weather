@@ -67,11 +67,11 @@ const WeeklyDetails = ({ weeklyDetails }: Props) => {
               <div className="icons">
                 <IconHourly
                   weatherCode={weeklyDetails[day].weatherCode.morning}
-                  hour="1 PM"
+                  hour="morning"
                 />
                 <IconHourly
                   weatherCode={weeklyDetails[day].weatherCode.night}
-                  hour="1 AM"
+                  hour="night"
                 />
               </div>
               <div className="min-max">
@@ -102,6 +102,8 @@ const WeeklyDetails = ({ weeklyDetails }: Props) => {
                           weeklyDetails[day].hourly[hour].weatherCode
                         }
                         hour={hour}
+                        sunrise={weeklyDetails[day].sunrise}
+                        sunset={weeklyDetails[day].sunset}
                       />
                       <p>{` ${weeklyDetails[day].hourly[hour].temp}`}&deg;</p>
                     </div>
