@@ -10,9 +10,11 @@ import "./HourlyDetails.scss";
 
 type Props = {
   hourlyDetails: DailyWeatherDetails;
+  sunrise: string;
+  sunset: string;
 };
 
-const HourlyDetails = ({ hourlyDetails }: Props) => {
+const HourlyDetails = ({ hourlyDetails, sunrise, sunset }: Props) => {
   return (
     <div className="Hourly-Details-container">
       <div className="Hourly-Details">
@@ -22,6 +24,8 @@ const HourlyDetails = ({ hourlyDetails }: Props) => {
             <IconHourly
               weatherCode={hourlyDetails.hourly[hour].weatherCode}
               hour={hour}
+              sunrise={sunrise}
+              sunset={sunset}
             />
 
             <p>{` ${hourlyDetails.hourly[hour].temp}`}&deg;</p>

@@ -53,8 +53,12 @@ const Body = ({ cityDetails, tempUnit }: Props) => {
       ) : (
         ""
       )}
-      {hourlyWeatherDetails ? (
-        <HourlyDetails hourlyDetails={hourlyWeatherDetails} />
+      {hourlyWeatherDetails && mainWeatherDetials ? (
+        <HourlyDetails
+          hourlyDetails={hourlyWeatherDetails}
+          sunrise={mainWeatherDetials.sunrise}
+          sunset={mainWeatherDetials?.sunset}
+        />
       ) : (
         ""
       )}
