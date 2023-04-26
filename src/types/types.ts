@@ -17,6 +17,8 @@ export interface TodayWeatherMainDetails {
   uvMax: string;
   weatherCode: number;
   wind: number;
+  sunrise: string;
+  sunset: string;
 }
 
 export type DailyWeatherDetails = {

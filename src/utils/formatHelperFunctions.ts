@@ -69,24 +69,21 @@ const getDayFromDate = (dateStr: string) => {
   return week[dayOfWeek];
 };
 
-const isDay = (): boolean => {
-  function checkDay(
-    currentTime: Date,
-    //start and end determined according to
-    // meteo weather api codes
-    dayStartHour: number = 10,
-    dayEndHour: number = 21
-  ) {
-    const currentHour = currentTime.getHours();
+const isDay = (sunrise: string, sunset: string): boolean | undefined => {
+  const currentHour = getCurrentHour();
+  const dayStartHour = convertTimeTo24HourFormat(sunrise);
+  const dayEndHour = convertTimeTo24HourFormat(sunset);
+
+  if (dayStartHour && dayEndHour) {
+    console.log("not undefined");
     if (currentHour >= dayStartHour && currentHour < dayEndHour) {
       return true; // it's day time
     } else {
       return false; // it's night time
     }
   }
-  const now = new Date();
-
-  return checkDay(now);
+  console.log("undefined");
+  return undefined;
 };
 
 function convertTimeTo24HourFormat(timeString: string): number | undefined {

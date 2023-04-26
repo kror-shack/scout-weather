@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { TodayWeatherMainDetails } from "../../types/types";
-import { getCurrentHour, isDay } from "../../utils/formatHelperFunctions";
 import IconMain from "../Icons/IconMain/IconMain";
 import "./MainDetails.scss";
 
@@ -9,13 +8,6 @@ type Props = {
 };
 
 const MainDetails = ({ mainDetails }: Props) => {
-  const [dayState, setDayState] = useState<boolean>();
-
-  useEffect(() => {
-    let isDayBoolean = isDay();
-    setDayState(isDayBoolean);
-  }, [mainDetails]);
-
   return (
     <div className="Main-Details">
       <div className="left">
@@ -35,7 +27,11 @@ const MainDetails = ({ mainDetails }: Props) => {
         <p>{mainDetails.uvMax} UV</p>
       </div>
       <div className="right">
-        <IconMain weatherCode={mainDetails.weatherCode} />
+        <IconMain
+          weatherCode={mainDetails.weatherCode}
+          sunrise={mainDetails.sunrise}
+          sunset={mainDetails.sunset}
+        />
         <p>{mainDetails.description}</p>
       </div>
     </div>

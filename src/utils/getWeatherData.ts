@@ -88,6 +88,10 @@ const getWeatherData = async ({ cityDetails, tempUnit }: Props) => {
       todayWeatherMainDetails.weatherCode =
         forecastWeatherDetails.todayTempDetails.hourly[thisHour].weatherCode;
       console.log(todayWeatherMainDetails.weatherCode);
+      todayWeatherMainDetails.sunrise =
+        forecastWeatherDetails.todayTempDetails.sunrise;
+      todayWeatherMainDetails.sunset =
+        forecastWeatherDetails.todayTempDetails.sunset;
 
       //console.log("the data from the meteo API -------------------");
       console.log(data);
