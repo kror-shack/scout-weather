@@ -47,6 +47,11 @@ const AutoCompleteList = ({
   }
 
   useEffect(() => {
+    console.log("this is the autocomplete list use effect");
+    console.log(cityNameList);
+  }, []);
+
+  useEffect(() => {
     if (location) {
       setCityDetails(() => ({
         lat: location.lat,
@@ -94,8 +99,10 @@ const AutoCompleteList = ({
               </button>
             );
           })
-        ) : (
+        ) : searchTitle !== "" || searchTitle ? (
           <span>no city found</span>
+        ) : (
+          ""
         )
       ) : searchTitle ? (
         <span>searching</span>
