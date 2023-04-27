@@ -21,6 +21,9 @@
     grid-auto-flow: column;
     border-radius: 0.625rem;
     padding: 0.125rem 0.313rem;
+    outline: none;
+    background: transparent;
+    border: none;
 
     &:hover {
       background: #00baba;

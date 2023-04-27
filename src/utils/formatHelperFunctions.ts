@@ -164,7 +164,13 @@ const compareTemps = (
   }
 };
 
+const convertKelvinToFahrenheit = (kelvin: number): number => {
+  const fahrenheit = (kelvin - 273.15) * 1.8 + 32;
+  return Math.round(fahrenheit);
+};
+
 export {
+  convertKelvinToFahrenheit,
   convertKelvinToCelcius,
   getProbabilityOverHours,
   getCurrentHour,

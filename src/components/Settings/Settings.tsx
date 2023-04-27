@@ -1,8 +1,19 @@
+import { useState } from "react";
 import { ReactComponent as MenuSvg } from "../../icons/static/menu.svg";
+import Sidebar from "../Sidebar/Sidebar";
+import "./Settings.scss";
 
-const Settings = () => {
+type Props = {
+  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Settings = ({ setShowSidebar }: Props) => {
+  function openSidebar() {
+    setShowSidebar((prev) => !prev);
+  }
+
   return (
-    <div>
+    <div className="Settings" onClick={openSidebar}>
       <MenuSvg />
     </div>
   );

@@ -1,0 +1,125 @@
+.Sidebar {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 20px;
+  height: 100%;
+  width: 420px;
+  align-items: center;
+  background: linear-gradient(to bottom, #b2f3f3, #00baba, #b2f3f3);
+  box-sizing: border-box;
+  color: rgb(0, 0, 0);
+  overflow: hidden;
+  left: 0;
+  animation: slideInFromLeft 0.5s forwards;
+}
+
+.hide {
+  display: none;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.close {
+  animation: slideOutToLeft 0.5s forwards;
+}
+
+.switch-button {
+  background: rgba(255, 255, 255, 0.56);
+  border-radius: 30px;
+  overflow: hidden;
+  width: 11rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 900;
+  font-family: "Raleway";
+  letter-spacing: 1px;
+  color: #155fff;
+  position: relative;
+  padding-right: 120px;
+  position: relative;
+
+  &:before {
+    content: "Fahrenheit";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -1rem;
+    width: 11rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  &-checkbox {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 2;
+
+    &:checked + .switch-button-label:before {
+      transform: translateX(120px);
+      transition: transform 100ms linear;
+    }
+
+    & + .switch-button-label {
+      position: relative;
+      padding: 15px 0;
+      display: block;
+      user-select: none;
+      pointer-events: none;
+
+      &:before {
+        content: "";
+        background: #fff;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 30px;
+        transform: translateX(0);
+        transition: transform 100ms;
+      }
+
+      .switch-button-label-span {
+        position: relative;
+      }
+    }
+  }
+}
+
+.unit-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

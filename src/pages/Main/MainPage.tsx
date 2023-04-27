@@ -10,6 +10,7 @@ function DisplayPage() {
   const [tempUnit, setTempUnit] = useState<Temp>("C");
   const [error, setError] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [showSidebar, setShowSidebar] = useState<boolean>(false);
 
   useEffect(() => {
     setCityDetails((prev) => ({
@@ -24,8 +25,18 @@ function DisplayPage() {
 
   return (
     <div className="Main-Page">
-      <Header cityDetails={cityDetails} setCityDetails={setCityDetails} />
-      <Body cityDetails={cityDetails} tempUnit={tempUnit} setError={setError} />
+      <Header
+        cityDetails={cityDetails}
+        setCityDetails={setCityDetails}
+        setShowSidebar={setShowSidebar}
+      />
+      <Body
+        cityDetails={cityDetails}
+        tempUnit={tempUnit}
+        setError={setError}
+        showSidebar={showSidebar}
+        setTempUnit={setTempUnit}
+      />
     </div>
   );
 }

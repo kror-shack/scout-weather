@@ -2,6 +2,7 @@ import {
   capitalizeWords,
   convertHourFormat,
   convertKelvinToCelcius,
+  convertKelvinToFahrenheit,
   getCurrentHour,
   getUVLevel,
   isDay,
@@ -47,10 +48,19 @@ const getWeatherData = async ({ cityDetails, tempUnit, setError }: Props) => {
         data.weather[0].description
       );
       todayWeatherMainDetails.name = data.name;
-      todayWeatherMainDetails.feelsLike = convertKelvinToCelcius(
-        data.main.feels_like
-      );
-      todayWeatherMainDetails.temp = convertKelvinToCelcius(data.main.temp);
+      if (tempUnit === "F") {
+        todayWeatherMainDetails.feelsLike = convertKelvinToFahrenheit(
+          data.main.feels_like
+        );
+        todayWeatherMainDetails.temp = convertKelvinToFahrenheit(
+          data.main.temp
+        );
+      } else {
+        todayWeatherMainDetails.feelsLike = convertKelvinToCelcius(
+          data.main.feels_like
+        );
+        todayWeatherMainDetails.temp = convertKelvinToCelcius(data.main.temp);
+      }
       todayWeatherMainDetails.wind = data.wind.speed;
 
       // console.log(todayWeatherMainDetails);
@@ -67,17 +77,23 @@ const getWeatherData = async ({ cityDetails, tempUnit, setError }: Props) => {
   }
   async function getDataFromMetoeWeather() {
     try {
+      let tempDetails;
+      if (tempUnit === "F") {
+        tempDetails = "&temperature_unit=fahrenheit";
+      } else {
+        tempDetails = "";
+      }
       let response = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${
           "name" in cityDetails ? coordinates.lat : cityDetails.lat
         }&longitude=${
           "name" in cityDetails ? coordinates.lon : cityDetails.lon
-        }&hourly=temperature_2m,weathercode,precipitation_probability,precipitation,rain,showers,snowfall,uv_index&daily=weathercode,sunrise,sunset,uv_index_max&time&past_days=1&timezone=auto`
+        }&hourly=temperature_2m,weathercode,precipitation_probability,precipitation,rain,showers,snowfall,uv_index&daily=weathercode,sunrise,sunset,uv_index_max&time&past_days=1&timezone=auto&${tempDetails}`
       );
       let data = await response.json();
       forecastWeatherDetails = formatForecastDailyTempDetails({
         data: data,
-        tempUnit: "C",
+        tempUnit: tempUnit,
       });
       todayWeatherMainDetails.uvMax =
         forecastWeatherDetails.todayTempDetails.uvMax;

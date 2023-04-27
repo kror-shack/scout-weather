@@ -5,15 +5,16 @@ import "./MainDetails.scss";
 
 type Props = {
   mainDetails: TodayWeatherMainDetails;
+  tempUnit: "C" | "F";
 };
 
-const MainDetails = ({ mainDetails }: Props) => {
+const MainDetails = ({ mainDetails, tempUnit }: Props) => {
   return (
     <div className="Main-Details">
       <div className="left">
         <div>
           <h2>{mainDetails.temp}&#176;</h2>
-          <span>C</span>
+          <span>{tempUnit}</span>
         </div>
         <span className="city-name">
           <p>{mainDetails.name}</p>

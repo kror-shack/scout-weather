@@ -12,6 +12,7 @@ import { ReactComponent as SunriseSvg } from "../../icons/static/sunrise.svg";
 type Props = {
   setCityDetails: React.Dispatch<React.SetStateAction<CityDetails>>;
   cityDetails: CityDetails | undefined;
+  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 type CityData = {
@@ -24,7 +25,7 @@ type FormSubmit =
   | React.FormEvent<HTMLFormElement>
   | React.MouseEvent<HTMLButtonElement>;
 
-const Header = ({ cityDetails, setCityDetails }: Props) => {
+const Header = ({ cityDetails, setCityDetails, setShowSidebar }: Props) => {
   const [searchTitle, setSearchTitle] = useState<string | undefined>();
   const [autoCompletedList, setAutoCompletedList] = useState<CityData[]>();
   const [showAutoCompleteList, setShowAutoCompleteList] = useState(false);
@@ -143,7 +144,7 @@ const Header = ({ cityDetails, setCityDetails }: Props) => {
 
   return (
     <div className="Header">
-      <Settings />
+      <Settings setShowSidebar={setShowSidebar} />
       <div>
         <div className="title">
           <h1>WEATHER</h1>
