@@ -23,6 +23,17 @@
   //   }
 }
 
+.Footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+  background-color: antiquewhite;
+}
+
 /////////Media Query
 
 // .Main-Page {

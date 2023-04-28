@@ -4,6 +4,7 @@ import Body from "../../components/Body/Body";
 import Header from "../../components/Header/Header";
 import { CityDetails, Temp } from "../../types/types";
 import "./MainPage.scss";
+import { Link } from "react-router-dom";
 
 function DisplayPage() {
   const [cityDetails, setCityDetails] = useState<CityDetails | undefined>();

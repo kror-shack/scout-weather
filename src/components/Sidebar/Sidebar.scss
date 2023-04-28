@@ -12,6 +12,7 @@
   overflow: hidden;
   left: 0;
   animation: slideInFromLeft 0.5s forwards;
+  gap: 6rem;
 }
 
 .hide {
@@ -122,4 +123,10 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
+}
+
+a {
+  text-decoration-style: dotted;
+  font-size: 1.5rem;
+  color: black;
 }

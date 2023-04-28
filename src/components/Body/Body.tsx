@@ -97,8 +97,11 @@ const Body = ({
       ) : (
         ""
       )}
-      <Sidebar showSidebar={showSidebar} setTempUnit={setTempUnit} />
-      <p>{tempUnit}</p>
+      <Sidebar
+        showSidebar={showSidebar}
+        setTempUnit={setTempUnit}
+        tempUnit={tempUnit}
+      />
     </div>
   );
 };

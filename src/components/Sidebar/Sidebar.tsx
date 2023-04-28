@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
+import OtherLocations from "../OtherLocations/OtherLocations";
 import "./Sidebar.scss";
+import { Link } from "react-router-dom";
 
 type TempUnits = "C" | "F";
+
 type Props = {
   showSidebar: boolean;
   setTempUnit: React.Dispatch<React.SetStateAction<TempUnits>>;
+  tempUnit: "C" | "F";
 };
 
-const Sidebar = ({ showSidebar, setTempUnit }: Props) => {
+const Sidebar = ({ showSidebar, setTempUnit, tempUnit }: Props) => {
   const [componentHasMounted, setComponentHasMounted] = useState(false);
 
-  function handleOnChange() {
+  function handleTempChange() {
     setTempUnit((prev) => {
       if (prev === "C") {
         return "F";
@@ -28,13 +32,10 @@ const Sidebar = ({ showSidebar, setTempUnit }: Props) => {
         showSidebar ? "Sidebar" : componentHasMounted ? "Sidebar close" : "hide"
       }
     >
-      <div className="close-container">
-        <button>X</button>
-      </div>
       <div className="unit-container">
         <div className="switch-button">
           <input
-            onChange={handleOnChange}
+            onChange={handleTempChange}
             className="switch-button-checkbox"
             type="checkbox"
           ></input>
@@ -43,10 +44,8 @@ const Sidebar = ({ showSidebar, setTempUnit }: Props) => {
           </label>
         </div>
       </div>
-      <div>
-        <p>Favourtie Locations</p>
-        <p>somewhere</p>
-      </div>
+      <OtherLocations tempUnit={tempUnit} />
+      <Link to="./contact">Contact Us</Link>
     </div>
   );
 };
