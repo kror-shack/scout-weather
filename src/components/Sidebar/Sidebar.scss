@@ -3,8 +3,8 @@
   display: flex;
   flex-direction: column;
   padding: 28px 20px;
-  height: 100%;
-  width: 420px;
+  height: inherit;
+  width: 26.25rem;
   align-items: center;
   background: linear-gradient(to bottom, #b2f3f3, #00baba, #b2f3f3);
   box-sizing: border-box;
@@ -13,6 +13,25 @@
   left: 0;
   animation: slideInFromLeft 0.5s forwards;
   gap: 6rem;
+
+  svg {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  @media screen and (max-width: 700px) {
+    font-size: 12px;
+  }
+
+  @media screen and (max-width: 600px) {
+    font-size: 10px;
+  }
+
+  @media screen and (max-width: 400px) {
+    font-size: 8px;
+
+    min-width: 75vw;
+  }
 }
 
 .hide {
@@ -43,7 +62,7 @@
 
 .switch-button {
   background: rgba(255, 255, 255, 0.56);
-  border-radius: 30px;
+  border-radius: 1.875rem;
   overflow: hidden;
   width: 11rem;
   text-align: center;
@@ -88,7 +107,7 @@
 
     & + .switch-button-label {
       position: relative;
-      padding: 15px 0;
+      padding: 0.938rem 0;
       display: block;
       user-select: none;
       pointer-events: none;
@@ -101,7 +120,7 @@
         position: absolute;
         left: 0;
         top: 0;
-        border-radius: 30px;
+        border-radius: 1.875rem;
         transform: translateX(0);
         transition: transform 100ms;
       }

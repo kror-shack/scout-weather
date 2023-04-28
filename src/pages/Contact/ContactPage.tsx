@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ContactPage.scss";
 
-function ContactPage() {
+const ContactPage = () => {
   const navigate = useNavigate();
   return (
     <div className="ContactPage">
@@ -24,6 +24,6 @@ function ContactPage() {
       </div>
     </div>
   );
-}
+};
 
 export default ContactPage;

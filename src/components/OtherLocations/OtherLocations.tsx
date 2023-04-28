@@ -100,6 +100,7 @@ const OtherLocations = ({ tempUnit }: Props) => {
 
       <form onSubmit={(e) => handleSubmit(e)}>
         <input
+          placeholder="City Name"
           onChange={(e) => handleInputChange(e.target.value)}
           type="text"
           value={inputValue}
