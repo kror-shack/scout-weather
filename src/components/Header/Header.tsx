@@ -110,34 +110,29 @@ const Header = ({ cityDetails, setCityDetails, setShowSidebar }: Props) => {
     debouncedSearch.cancel();
   }, [cityDetails]);
 
-  //add a debounce function
   useEffect(() => {
+    const debouncedHanldeResize = _debounce(handleResize, 200);
     function handleResize() {
-      console.log("handling resize");
       const inputWidth = inputRef?.current?.offsetWidth;
+      if (inputRef.current && autoCompletelistRef.current) {
+        const inputWidth = inputRef?.current?.offsetWidth;
+
+        // Set the initial width of the autocomplete list to match the width of the search input
+        autoCompletelistRef.current.style.width = inputWidth + "px";
+
+        // Add a resize event listener to the window object to update the width of the autocomplete list
+
+        window.addEventListener("resize", debouncedHanldeResize);
+      }
       if (autoCompletelistRef.current)
         autoCompletelistRef.current.style.width = inputWidth + "px";
     }
 
-    console.log("running the use effect");
-    console.log(inputRef.current);
-    console.log(autoCompletelistRef);
     // Get the initial width of the search input
-    if (inputRef.current && autoCompletelistRef.current) {
-      console.log("the typecheck passes for refs");
-      const inputWidth = inputRef?.current?.offsetWidth;
 
-      // Set the initial width of the autocomplete list to match the width of the search input
-      autoCompletelistRef.current.style.width = inputWidth + "px";
-
-      // Add a resize event listener to the window object to update the width of the autocomplete list
-
-      window.addEventListener("resize", handleResize);
-
-      return () => {
-        // window.removeEventListener("resize", handleResize);
-      };
-    }
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
 
     // Remove the resize event listener when the component unmounts
   }, []);
