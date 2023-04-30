@@ -5,7 +5,13 @@ import ErrorPage from "./pages/Error/ErrorPage";
 import DisplayPage from "./pages/Main/MainPage";
 const App = () => {
   return (
-    <div className="App">
+    <div
+      style={{
+        maxWidth: "100%",
+        boxSizing: "border-box",
+      }}
+      className="App"
+    >
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<DisplayPage />} />

@@ -1,17 +1,19 @@
 .Body {
   display: grid;
   height: 100vh;
-  width: 100vw;
+  // width: 100vw;
+  padding: 0px 1px;
+  box-sizing: border-box;
+  overflow: hidden;
 
   grid-template-rows: repeat(5, 1fr); /* creates 5 rows with equal height */
   row-gap: 1.8rem;
   grid-template-columns: 25% 50% 25%;
 }
 
-.Body > div {
+.Body > section {
   grid-column: 2;
 }
-
 :root {
   background: rgb(151 249 249 / 19%);
 }

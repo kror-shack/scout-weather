@@ -10,7 +10,7 @@ type Props = {
 
 const MainDetails = ({ mainDetails, tempUnit }: Props) => {
   return (
-    <div className="Main-Details">
+    <section className="Main-Details">
       <div className="left">
         <div>
           <h2>{mainDetails.temp}&#176;</h2>
@@ -35,7 +35,7 @@ const MainDetails = ({ mainDetails, tempUnit }: Props) => {
         />
         <p>{mainDetails.description}</p>
       </div>
-    </div>
+    </section>
   );
 };
 

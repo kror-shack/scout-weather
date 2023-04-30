@@ -57,7 +57,7 @@ const Body = ({
     getCityWeatherData();
   }, [cityDetails, tempUnit]);
   return (
-    <div className="Body">
+    <body className="Body">
       {mainWeatherDetials ? (
         <MainDetails mainDetails={mainWeatherDetials} tempUnit={tempUnit} />
       ) : (
@@ -102,7 +102,7 @@ const Body = ({
         setTempUnit={setTempUnit}
         tempUnit={tempUnit}
       />
-    </div>
+    </body>
   );
 };
 

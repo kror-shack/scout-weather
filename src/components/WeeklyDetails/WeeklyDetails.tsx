@@ -31,7 +31,7 @@ const WeeklyDetails = ({ weeklyDetails }: Props) => {
   }
 
   return (
-    <div className="Weekly-Details">
+    <section className="Weekly-Details">
       {Object.keys(weeklyDetails)
         .filter((item) => {
           const excludedDays = [
@@ -133,7 +133,7 @@ const WeeklyDetails = ({ weeklyDetails }: Props) => {
             </div>
           </div>
         ))}
-    </div>
+    </section>
   );
 };
 

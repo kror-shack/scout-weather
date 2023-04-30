@@ -16,7 +16,7 @@ type Props = {
 
 const HourlyDetails = ({ hourlyDetails, sunrise, sunset }: Props) => {
   return (
-    <div className="Hourly-Details-container">
+    <section className="Hourly-Details-container">
       <div className="Hourly-Details">
         {Object.keys(hourlyDetails.hourly).map((hour) => (
           <div key={hourlyDetails.hourly[hour].key}>
@@ -36,7 +36,7 @@ const HourlyDetails = ({ hourlyDetails, sunrise, sunset }: Props) => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

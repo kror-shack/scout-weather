@@ -5,8 +5,8 @@
 .Main-Page {
   padding: 0 0 5px 0;
   display: flex;
-  max-width: 99vw;
   flex-direction: column;
+  box-sizing: border-box;
 
   //   div:first-child {
   //     background-color: black;

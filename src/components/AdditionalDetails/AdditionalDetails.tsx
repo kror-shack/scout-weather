@@ -11,7 +11,7 @@ type Props = {
 
 const AdditionalDetails = ({ additionalDetails, wind }: Props) => {
   return (
-    <div className="Additional-Details">
+    <section className="Additional-Details">
       <div className="wind-container">
         <h4>Wind</h4>
         <WindSvg />
@@ -30,7 +30,7 @@ const AdditionalDetails = ({ additionalDetails, wind }: Props) => {
           <p> {additionalDetails.sunset}</p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

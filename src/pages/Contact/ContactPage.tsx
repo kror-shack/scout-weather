@@ -5,7 +5,7 @@ import "./ContactPage.scss";
 const ContactPage = () => {
   const navigate = useNavigate();
   return (
-    <div className="ContactPage">
+    <main className="ContactPage">
       <div>
         <button onClick={() => navigate("/")}>Back</button>
       </div>
@@ -25,7 +25,7 @@ const ContactPage = () => {
           "
         </p>
       </div>
-    </div>
+    </main>
   );
 };
 

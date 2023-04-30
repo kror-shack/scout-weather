@@ -27,12 +27,12 @@ const Sidebar = ({ showSidebar, setTempUnit, tempUnit }: Props) => {
     if (showSidebar) setComponentHasMounted(true);
   }, [showSidebar]);
   return (
-    <div
+    <aside
       className={
         showSidebar ? "Sidebar" : componentHasMounted ? "Sidebar close" : "hide"
       }
     >
-      <div className="unit-container">
+      <section className="unit-container">
         <div className="switch-button">
           <input
             onChange={handleTempChange}
@@ -43,10 +43,10 @@ const Sidebar = ({ showSidebar, setTempUnit, tempUnit }: Props) => {
             <span className="switch-button-label-span">Celcius</span>
           </label>
         </div>
-      </div>
+      </section>
       <OtherLocations tempUnit={tempUnit} />
       <Link to="./contact">Contact Us</Link>
-    </div>
+    </aside>
   );
 };
 

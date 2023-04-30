@@ -121,24 +121,25 @@ const Header = ({ cityDetails, setCityDetails, setShowSidebar }: Props) => {
         autoCompletelistRef.current.style.width = inputWidth + "px";
 
         // Add a resize event listener to the window object to update the width of the autocomplete list
-
-        window.addEventListener("resize", debouncedHanldeResize);
       }
       if (autoCompletelistRef.current)
         autoCompletelistRef.current.style.width = inputWidth + "px";
     }
+    handleResize();
+
+    window.addEventListener("resize", debouncedHanldeResize);
 
     // Get the initial width of the search input
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      // window.removeEventListener("resize", handleResize);
     };
 
     // Remove the resize event listener when the component unmounts
   }, []);
 
   return (
-    <div className="Header">
+    <header className="Header">
       <Settings setShowSidebar={setShowSidebar} />
       <div>
         <div className="title">
@@ -221,7 +222,7 @@ const Header = ({ cityDetails, setCityDetails, setShowSidebar }: Props) => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

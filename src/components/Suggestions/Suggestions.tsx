@@ -190,7 +190,7 @@ const Suggestions = ({
   }, [todayMax, todayMin, yesterdayMax, yesterdayMin]);
 
   return (
-    <div className="Suggestions">
+    <section className="Suggestions">
       <div className="carousel">
         {suggestionIndex === 0 ? (
           <p>{suggestions?.tempComparison}</p>
@@ -246,7 +246,7 @@ const Suggestions = ({
       </div>
       {/* <p>Suggestion: {suggestions?.uvSuggestion}</p>
       <p>Suggestion: {suggestions?.tempComparison}</p> */}
-    </div>
+    </section>
   );
 };
 

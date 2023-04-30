@@ -74,7 +74,7 @@ const OtherLocations = ({ tempUnit }: Props) => {
     }
   }
   return (
-    <div className="locations">
+    <section className="locations">
       <h3>Favourite Locations</h3>
       <ul>
         {locationArr
@@ -107,7 +107,7 @@ const OtherLocations = ({ tempUnit }: Props) => {
         ></input>
         <button>Add Location</button>
       </form>
-    </div>
+    </section>
   );
 };
 
