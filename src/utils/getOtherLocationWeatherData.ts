@@ -15,11 +15,12 @@ const getOtherLocationWeatherData = async (
   let coordinates = {} as Coordinates;
   let cityTemp: number | undefined;
   let weatherCode: number | undefined;
+  const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
 
   async function getDataFromOpenWeather() {
     try {
       let response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=0bfd43c822d3aebccceaae1fd3fb1173`,
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${apiKey}`,
         { mode: "cors" }
       );
       let data = await response.json();

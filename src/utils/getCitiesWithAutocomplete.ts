@@ -10,10 +10,12 @@ type Data = {
 
 const getCitiesWithAutocomplete = async (cityPrefix: string) => {
   let cityList: CityData[] | undefined = [];
+  const apiKey = process.env.REACT_APP_RAPID_API_KEY;
+
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "46d19eea50mshe41b79d61a95610p1465ebjsn3028fccf8526",
+      "X-RapidAPI-Key": `${apiKey}`,
       "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
     },
   };

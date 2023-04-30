@@ -31,6 +31,7 @@ const getWeatherData = async ({ cityDetails, tempUnit, setError }: Props) => {
   let todayWeatherMainDetails = {} as TodayWeatherMainDetails;
   let forecastWeatherDetails = {} as ForecastDetails;
   let coordinates = {} as Coordinates;
+  const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
 
   async function getDataFromOpenWeather() {
     try {
@@ -39,7 +40,7 @@ const getWeatherData = async ({ cityDetails, tempUnit, setError }: Props) => {
           "name" in cityDetails
             ? `q=${cityDetails.name}`
             : `lat=${cityDetails.lat}&lon=${cityDetails.lon}`
-        }&APPID=0bfd43c822d3aebccceaae1fd3fb1173`,
+        }&APPID=${apiKey}`,
         { mode: "cors" }
       );
       let data = await response.json();
