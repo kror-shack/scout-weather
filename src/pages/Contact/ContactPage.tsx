@@ -19,7 +19,10 @@ const ContactPage = () => {
         <p>
           {" "}
           You can contact us through our support email at{" "}
-          <a href="mailto:.demo@weatherapp.com">demo@weatherapp.com</a>"
+          <a href="mailto:.krorshack.helpdesk@gmail.com">
+            krorshack.helpdesk@gmail.com
+          </a>
+          "
         </p>
       </div>
     </div>

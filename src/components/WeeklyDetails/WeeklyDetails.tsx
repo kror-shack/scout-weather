@@ -14,7 +14,7 @@ type Props = {
 };
 
 const WeeklyDetails = ({ weeklyDetails }: Props) => {
-  const [dropdownIndex, setDropdownIndex] = useState<number | null>(null);
+  const [dropdownIndex, setDropdownIndex] = useState<number | null>(0);
 
   function handleDayClick(index: number) {
     // it matches the index with the prev state

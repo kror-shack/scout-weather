@@ -20,7 +20,7 @@ const Settings = ({ setShowSidebar }: Props) => {
         <button
           onClick={openSidebar}
           id="menu-toggle"
-          className={sidebarShown ? "menu-toggle" : "menu-toggle nav-open"}
+          className={sidebarShown ? "menu-toggle nav-open" : "menu-toggle"}
         >
           <span className="menu-toggle-bar menu-toggle-bar--top"></span>
           <span className="menu-toggle-bar menu-toggle-bar--middle"></span>
