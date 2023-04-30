@@ -144,6 +144,13 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
       hourlyPercipitaionProbabilityArray.slice(index, index + 24)
     );
 
+    dayTempDetails.weatherCode.morning = getWeatherCodeOverHours(
+      hourlyWeatherCodeArray.slice(index, index + 12)
+    );
+    dayTempDetails.weatherCode.night = getWeatherCodeOverHours(
+      hourlyWeatherCodeArray.slice(index + 12, index + 24)
+    );
+
     if (day) {
       dayTempDetails.max_temp = Math.round(highestTemp);
       //console.log(highestTemp);
@@ -153,16 +160,11 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
       dayTempDetails.sunset = dailySunsetArray[day];
       dayTempDetails.dayName = getDayFromDate(dailyNameArray[day]);
       dayTempDetails.weatherCode.overall = dailyWeatherCode[day];
-
-      dayTempDetails.weatherCode.morning = getWeatherCodeOverHours(
-        hourlyWeatherCodeArray.slice(index, index + 12)
-      );
-      dayTempDetails.weatherCode.night = getWeatherCodeOverHours(
-        hourlyWeatherCodeArray.slice(index + 12, index + 24)
-      );
     } else {
       dayTempDetails.max_temp = Math.round(highestTemp);
       //console.log(highestTemp);
+      dayTempDetails.dayName = "Yesterday";
+
       dayTempDetails.min_temp = Math.round(lowestTemp);
     }
     dayTempDetails.key = uniqid();

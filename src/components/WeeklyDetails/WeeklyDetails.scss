@@ -21,9 +21,6 @@
     grid-auto-flow: column;
     border-radius: 0.625rem;
     padding: 0.125rem 0.313rem;
-    outline: none;
-    background: transparent;
-    border: none;
 
     &:hover {
       background: #00baba;
@@ -170,6 +167,18 @@
       }
     }
   }
+}
+
+.Weekly-Details > div:first-child {
+  background-color: #b4f1f100;
+  padding: 0px 2rem;
+  box-sizing: border-box;
+  opacity: 0.8;
+}
+
+.Weekly-Details > div:first-child > div:hover {
+  background-color: #b4f1f1;
+  cursor: default;
 }
 
 @media screen and (max-width: 400px) {
