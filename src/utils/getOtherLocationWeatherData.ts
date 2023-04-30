@@ -19,7 +19,7 @@ const getOtherLocationWeatherData = async (
   async function getDataFromOpenWeather() {
     try {
       let response = await fetch(
-        `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=0bfd43c822d3aebccceaae1fd3fb1173`,
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=0bfd43c822d3aebccceaae1fd3fb1173`,
         { mode: "cors" }
       );
       let data = await response.json();

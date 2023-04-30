@@ -35,7 +35,7 @@ const getWeatherData = async ({ cityDetails, tempUnit, setError }: Props) => {
   async function getDataFromOpenWeather() {
     try {
       let response = await fetch(
-        `http://api.openweathermap.org/data/2.5/weather?${
+        `https://api.openweathermap.org/data/2.5/weather?${
           "name" in cityDetails
             ? `q=${cityDetails.name}`
             : `lat=${cityDetails.lat}&lon=${cityDetails.lon}`
