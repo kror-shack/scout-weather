@@ -4,11 +4,16 @@
   // width: 100vw;
   padding: 0px 1px;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-x: hidden;
+  // margin-top: 5rem;
 
   grid-template-rows: repeat(5, 1fr); /* creates 5 rows with equal height */
   row-gap: 1.8rem;
   grid-template-columns: 25% 50% 25%;
+}
+
+.Body::-webkit-scrollbar {
+  display: none;
 }
 
 .Body > section {
