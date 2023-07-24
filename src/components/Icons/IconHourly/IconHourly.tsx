@@ -1,7 +1,10 @@
 /* eslint-disable no-duplicate-case */
 // throwing random wrong? error (no-duplicate)
 import { useEffect, useState } from "react";
-import { checkIfHourIsDay, isDay } from "../../../utils/formatHelperFunctions";
+import {
+  checkIfHourIsDay,
+  isDay,
+} from "../../../utils/formatHelperFunctions/formatHelperFunctions";
 import { ReactComponent as NightClearSvg } from "../../../icons/static/night-clear-sky.svg";
 import { ReactComponent as DayClearSvg } from "../../../icons/static/day-clear-sky.svg";
 

@@ -1,11 +1,12 @@
 const convertKelvinToCelcius = (kelvin: number): number => {
-  const celsius = kelvin - 273.15; // convert to Celsius
-  const roundedCelsius = Math.round(celsius); // round up to nearest integer
+  const celsius = kelvin - 273.15;
+  const roundedCelsius = Math.round(celsius);
   return roundedCelsius;
 };
 
 //change function to weighted probability
 const getProbabilityOverHours = (valueArray: number[]): number => {
+  if (valueArray.length < 1) return 0;
   const probabilityOfNotHappening = valueArray.reduce(
     (accumulator, currentValue) => {
       return accumulator * (1 - currentValue / 100);
@@ -14,7 +15,6 @@ const getProbabilityOverHours = (valueArray: number[]): number => {
   );
 
   const porbability = (1 - probabilityOfNotHappening) / valueArray.length;
-
   if (porbability < 0) return 0;
   return Math.round(porbability * 100);
 };
@@ -54,7 +54,7 @@ const convertHourFormat = (hour: number): string => {
 
 const getDayFromDate = (dateStr: string) => {
   const date = new Date(dateStr);
-  const dayOfWeek = date.getDay(); // returns number from 1
+  const dayOfWeek = date.getDay();
 
   const week = [
     "Sunday",
@@ -65,7 +65,6 @@ const getDayFromDate = (dateStr: string) => {
     "Friday",
     "Saturday",
   ];
-  //console.log(week[dayOfWeek]);
   return week[dayOfWeek];
 };
 
@@ -92,7 +91,6 @@ function convertTimeTo24HourFormat(timeString: string): number | undefined {
     return undefined;
   }
   const hours = Number(match[1]);
-  const minutes = match[3] ? Number(match[3]) : 0;
   const ampm = match[4].toUpperCase();
   if (hours === 12) {
     return ampm === "AM" ? 0 : 12;
@@ -182,4 +180,5 @@ export {
   capitalizeWords,
   checkIfHourIsDay,
   compareTemps,
+  convertTimeTo24HourFormat,
 };

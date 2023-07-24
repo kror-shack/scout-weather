@@ -5,7 +5,7 @@ import {
   getDayFromDate,
   convertHourFormat,
   getUVLevel,
-} from "./formatHelperFunctions";
+} from "./formatHelperFunctions/formatHelperFunctions";
 
 import {
   DailyWeatherDetails,

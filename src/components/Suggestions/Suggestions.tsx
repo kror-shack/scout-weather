@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { compareTemps } from "../../utils/formatHelperFunctions";
+import { compareTemps } from "../../utils/formatHelperFunctions/formatHelperFunctions";
 import "./Suggestions.scss";
 
 type Props = {

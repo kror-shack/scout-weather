@@ -6,7 +6,7 @@ import {
   getCurrentHour,
   getUVLevel,
   isDay,
-} from "./formatHelperFunctions";
+} from "./formatHelperFunctions/formatHelperFunctions";
 import formatForecastDailyTempDetails from "./formatWeatherData";
 import {
   CityDetails,

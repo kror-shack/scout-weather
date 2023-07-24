@@ -1,7 +1,7 @@
 import {
   convertKelvinToCelcius,
   convertKelvinToFahrenheit,
-} from "./formatHelperFunctions";
+} from "./formatHelperFunctions/formatHelperFunctions";
 
 type Coordinates = {
   lon: number;

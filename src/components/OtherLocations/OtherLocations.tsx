@@ -5,7 +5,7 @@ import "./OtherLocations.scss";
 import {
   capitalizeWords,
   getCurrentHour,
-} from "../../utils/formatHelperFunctions";
+} from "../../utils/formatHelperFunctions/formatHelperFunctions";
 import IconHourly from "../Icons/IconHourly/IconHourly";
 
 type Locations = {

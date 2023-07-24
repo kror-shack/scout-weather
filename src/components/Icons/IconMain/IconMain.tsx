@@ -27,7 +27,10 @@ import { ReactComponent as NightThunderstormLightHailSvg } from "../../../icons/
 import { ReactComponent as DayThunderstormHeavyHailSvg } from "../../../icons/animated/day-thundersorm-heavy-hail.svg";
 import { ReactComponent as NightThunderstormHeavyHailSvg } from "../../../icons/animated/night-thundersorm-heavy-hail.svg";
 import { ReactComponent as CompassSvg } from "../../../icons/animated/compass.svg";
-import { getCurrentHour, isDay } from "../../../utils/formatHelperFunctions";
+import {
+  getCurrentHour,
+  isDay,
+} from "../../../utils/formatHelperFunctions/formatHelperFunctions";
 
 type Props = {
   weatherCode: number;
