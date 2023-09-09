@@ -31,17 +31,19 @@ const getWeatherData = async ({ cityDetails, tempUnit, setError }: Props) => {
   let todayWeatherMainDetails = {} as TodayWeatherMainDetails;
   let forecastWeatherDetails = {} as ForecastDetails;
   let coordinates = {} as Coordinates;
-  const apiKey = process.env.REACT_APP_OPENWEATHER_API_KEY;
 
   async function getDataFromOpenWeather() {
     try {
       let response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?${
-          "name" in cityDetails
-            ? `q=${cityDetails.name}`
-            : `lat=${cityDetails.lat}&lon=${cityDetails.lon}`
-        }&APPID=${apiKey}`,
-        { mode: "cors" }
+        `/.netlify/functions/getDataFromOpenWeather?cityName=${
+          "name" in cityDetails ? cityDetails.name : ""
+        }&lat=${"lat" in cityDetails ? cityDetails.lat : ""}&lon=${
+          "lon" in cityDetails ? cityDetails.lon : ""
+        }`,
+        {
+          method: "GET",
+          headers: { accept: "application/json" },
+        }
       );
       let data = await response.json();
       console.log(data);
@@ -64,15 +66,11 @@ const getWeatherData = async ({ cityDetails, tempUnit, setError }: Props) => {
       }
       todayWeatherMainDetails.wind = data.wind.speed;
 
-      // console.log(todayWeatherMainDetails);
-
       coordinates.lon = data.coord.lon;
 
       coordinates.lat = data.coord.lat;
-      //console.log("these are the cooridnates--------------");
-      //console.log(coordinates);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       setError(true);
     }
   }
@@ -116,7 +114,7 @@ const getWeatherData = async ({ cityDetails, tempUnit, setError }: Props) => {
       //console.log("the data from the meteo API -------------------");
       console.log(data);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       setError(true);
     }
   }
@@ -135,7 +133,7 @@ const getWeatherData = async ({ cityDetails, tempUnit, setError }: Props) => {
         ]);
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   }
 

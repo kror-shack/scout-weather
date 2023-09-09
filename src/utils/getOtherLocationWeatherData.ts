@@ -20,8 +20,11 @@ const getOtherLocationWeatherData = async (
   async function getDataFromOpenWeather() {
     try {
       let response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${apiKey}`,
-        { mode: "cors" }
+        `/.netlify/functions/getDataFromOpenWeather?cityName=${cityName}`,
+        {
+          method: "GET",
+          headers: { accept: "application/json" },
+        }
       );
       let data = await response.json();
       coordinates.lon = data.coord.lon;
