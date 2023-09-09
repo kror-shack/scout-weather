@@ -143,7 +143,7 @@ const Header = ({ cityDetails, setCityDetails, setShowSidebar }: Props) => {
       <Settings setShowSidebar={setShowSidebar} />
       <div>
         <div className="title">
-          <h1>WEATHER</h1>
+          <h1>ScoutWeather</h1>
           <SunriseSvg />
         </div>
         <div className="container">
