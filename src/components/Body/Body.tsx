@@ -41,15 +41,11 @@ const Body = ({
 
   async function getCityWeatherData() {
     if (cityDetails) {
-      //console.log("in the clickkkk functijon");
       let { todayWeatherMainDetails, forecastWeatherDetails } =
         await getWeatherData({ cityDetails, tempUnit, setError });
       setMainWeatherDetails(todayWeatherMainDetails);
       setHourlyWeatherDetails(forecastWeatherDetails.next24HourTempDetails);
       setWeeeklyWeatherDetails(forecastWeatherDetails);
-      //console.log(todayWeatherMainDetails);
-
-      //console.log(forecastWeatherDetails);
     }
   }
 

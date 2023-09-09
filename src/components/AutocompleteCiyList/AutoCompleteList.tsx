@@ -24,11 +24,8 @@ const AutoCompleteList = ({
     lat: number | null;
     lon: number | null;
   }>();
-  //console.log(cityNameList);
 
   function handleButtonClick(cityName: string) {
-    //console.log("in the handling of the auto complete button list");
-    //console.log(cityName);
     setCityDetails((prev) => ({
       ...prev,
       name: cityName,
@@ -36,7 +33,6 @@ const AutoCompleteList = ({
   }
 
   function handleLocationOnClick() {
-    console.log("handling the locaiton on click");
     getUserLocation(setLocation);
     if (location) {
       setCityDetails((prev) => ({
@@ -45,11 +41,6 @@ const AutoCompleteList = ({
       }));
     }
   }
-
-  useEffect(() => {
-    console.log("this is the autocomplete list use effect");
-    console.log(cityNameList);
-  }, []);
 
   useEffect(() => {
     if (location) {

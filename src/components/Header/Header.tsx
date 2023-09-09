@@ -40,7 +40,6 @@ const Header = ({ cityDetails, setCityDetails, setShowSidebar }: Props) => {
 
   const debouncedSearch = useCallback(
     _debounce(async (inputValue: string | undefined) => {
-      console.log("this is the debounce function running");
       if (inputValue) {
         setAutoCompletedList(undefined);
         if (inputValue.length > 3) {
@@ -53,8 +52,6 @@ const Header = ({ cityDetails, setCityDetails, setShowSidebar }: Props) => {
   );
 
   function handleSubmit(e: FormSubmit) {
-    console.log("handling submit");
-
     e.preventDefault();
     setCityDetails((prev) => ({
       ...prev,
@@ -79,7 +76,6 @@ const Header = ({ cityDetails, setCityDetails, setShowSidebar }: Props) => {
 
   function handleLocationOnnClick(e: any) {
     e.stopPropagation();
-    console.log("handling the locaiton on click");
     // e.stopPropagation();
     getUserLocation(setLocation);
     if (location) {
@@ -101,7 +97,6 @@ const Header = ({ cityDetails, setCityDetails, setShowSidebar }: Props) => {
 
   //to empty the search bar after searching
   useEffect(() => {
-    console.log("this  is the use effect running");
     setSearchTitle("");
     setAutoCompletedList(undefined);
     setShowAutoCompleteList(false);

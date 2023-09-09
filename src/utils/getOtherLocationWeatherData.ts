@@ -43,7 +43,6 @@ const getOtherLocationWeatherData = async (
         `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.lat}&longitude=${coordinates.lon}&daily=weathercode&timezone=auto`
       );
       let data = await response.json();
-      console.log(data.daily.weathercode[0]);
       return data.daily.weathercode[0];
     } catch (err) {
       console.error(err);
@@ -53,8 +52,6 @@ const getOtherLocationWeatherData = async (
   async function fetchData() {
     try {
       cityTemp = await getDataFromOpenWeather();
-      console.log("this is the city temp");
-      console.log(cityTemp);
       weatherCode = await getDataFromMetoeWeather();
     } catch (err) {
       console.error(err);

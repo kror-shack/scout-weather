@@ -21,12 +21,7 @@ const getCitiesWithAutocomplete = async (cityPrefix: string) => {
           headers: { accept: "application/json" },
         }
       );
-      console.log("afterwards");
       let data: Data = await response.json();
-      console.log(
-        "🚀 ~ file: getCitiesWithAutocomplete.ts:34 ~ fetchData ~ data:",
-        data
-      );
 
       cityList = [];
       for (let i = 0; i < data.data.length; i++) {

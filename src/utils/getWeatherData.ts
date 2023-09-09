@@ -46,7 +46,6 @@ const getWeatherData = async ({ cityDetails, tempUnit, setError }: Props) => {
         }
       );
       let data = await response.json();
-      console.log(data);
       todayWeatherMainDetails.description = capitalizeWords(
         data.weather[0].description
       );
@@ -105,16 +104,11 @@ const getWeatherData = async ({ cityDetails, tempUnit, setError }: Props) => {
 
       todayWeatherMainDetails.weatherCode =
         forecastWeatherDetails.todayTempDetails.hourly[thisHour].weatherCode;
-      console.log(todayWeatherMainDetails.weatherCode);
       todayWeatherMainDetails.sunrise =
         forecastWeatherDetails.todayTempDetails.sunrise;
       todayWeatherMainDetails.sunset =
         forecastWeatherDetails.todayTempDetails.sunset;
-
-      //console.log("the data from the meteo API -------------------");
-      console.log(data);
     } catch (err) {
-      // console.error(err);
       setError(true);
     }
   }
@@ -138,12 +132,6 @@ const getWeatherData = async ({ cityDetails, tempUnit, setError }: Props) => {
   }
 
   await fetchData();
-
-  //console.log(
-  //"-----------this is the end of the get weather funcdtion ----------"
-  // );
-  //console.log(todayWeatherMainDetails);
-  console.log(forecastWeatherDetails);
 
   return {
     todayWeatherMainDetails,

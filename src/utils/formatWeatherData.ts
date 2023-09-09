@@ -37,8 +37,6 @@ type Data = {
 };
 
 const formatHourlyTime = ({ data, tempUnit }: Props) => {
-  //console.log("this be the uniqid");
-  //console.log(uniqid());
   let thisHour = getCurrentHour();
 
   let unformattedHourlyimeArray = data.hourly.time;
@@ -46,7 +44,6 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
   let hourlyPercipitaionProbabilityArray =
     data.hourly.precipitation_probability;
   let hourlyRainArray = data.hourly.rain;
-  //console.log(hourlyRainArray);
   let hourlySnowFallArray = data.hourly.snowfall;
   let unformatteddailySunriseArray = data.daily.sunrise;
   let unformatteddailySunsetArray = data.daily.sunset;
@@ -153,7 +150,6 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
 
     if (day) {
       dayTempDetails.max_temp = Math.round(highestTemp);
-      //console.log(highestTemp);
       dayTempDetails.min_temp = Math.round(lowestTemp);
       dayTempDetails.uvMax = getUVLevel(Math.round(dailyUvIndex[day]));
       dayTempDetails.sunrise = dailySunriseArray[day];
@@ -162,7 +158,6 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
       dayTempDetails.weatherCode.overall = dailyWeatherCode[day];
     } else {
       dayTempDetails.max_temp = Math.round(highestTemp);
-      //console.log(highestTemp);
       dayTempDetails.dayName = "Yesterday";
 
       dayTempDetails.min_temp = Math.round(lowestTemp);
@@ -173,7 +168,6 @@ const formatHourlyTime = ({ data, tempUnit }: Props) => {
   }
 
   let yesterdayTempDetails = getWeatherDetailsForDay(0, 0);
-  //console.log(`this be the hour: ${thisHour}`);
   let next24HourTempDetails = getWeatherDetailsForDay(thisHour);
 
   let todayTempDetails = getWeatherDetailsForDay(24, 1);

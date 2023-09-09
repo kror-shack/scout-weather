@@ -42,8 +42,6 @@ const IconMain = ({ weatherCode, sunrise, sunset }: Props) => {
   const [selectedIcon, setSelectedIcon] = useState<JSX.Element | null>(null);
 
   useEffect(() => {
-    console.log("This is the weatehr code");
-    console.log(weatherCode);
     let isDayTime = isDay(sunrise, sunset);
 
     if (isDayTime !== undefined) {

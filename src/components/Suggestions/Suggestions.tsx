@@ -133,7 +133,6 @@ const Suggestions = ({
         );
         break;
       default:
-        console.log(uvIndex);
         addUVSuggestion("Check the UV index before going outside.");
     }
   }, [uvIndex]);

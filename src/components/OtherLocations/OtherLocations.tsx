@@ -35,13 +35,9 @@ const OtherLocations = ({ tempUnit }: Props) => {
           inputValue,
           tempUnit
         );
-        console.log("outside the conditional");
-        console.log(cityTemp);
         if (!cityTemp || !weatherCode) {
           return;
         } else {
-          console.log(cityTemp);
-          console.log("inside the conditional");
           const newObject = {
             cityName: capitalizeWords(inputValue),
             cityTemp: cityTemp,
@@ -54,7 +50,6 @@ const OtherLocations = ({ tempUnit }: Props) => {
         }
       }
       setInputValue("");
-      console.log(locationArr);
     } catch (err) {
       console.error(err);
       alert("city not found");
